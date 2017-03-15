@@ -1,0 +1,19 @@
+{
+    "buildopts":{
+        "volk":{
+            "virtual_builder_tags":["volk"]
+        }
+    },
+    "builders":{
+        "master":{
+            "builds":[
+                {
+                    "scheds": ["Ubuntu_14_04_64",
+                               "Ubuntu_16_04_64",
+                               "Fedora_26"],
+                    "runners": ["pull"]
+                }
+            ]
+        }
+    }
+}

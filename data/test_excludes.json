@@ -1,0 +1,9 @@
+[       "qa_polar_encoder",
+        "qa_qtgui",
+        "qa_udp_source_sink",
+        "qa_zeromq_sub",
+	"qa_zeromq_pub",
+	"qa_packet_headerparser_b",
+	"qa_header_payload_demux",
+	"qa_ofdm_sync_sc_cfb"
+]

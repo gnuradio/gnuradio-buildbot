@@ -1,0 +1,179 @@
+{
+    "buildopts":{
+        "python2":{
+             "properties":{
+                 "cmake_defs":{
+                     "PYTHON_EXECUTABLE": "/usr/bin/python2"
+                 },
+                 "virtual_builder_tags":["py2"]
+             }
+        },
+        "python3":{
+            "properties":{
+                "cmake_defs":{
+                    "PYTHON_EXECUTABLE": "/usr/bin/python3"
+                },
+                "virtual_builder_tags":["py3"]
+            }
+        },
+        "qt4":{
+            "properties":{
+                "cmake_defs":{
+                     "DESIRED_QT_VERSION": "4"
+                },
+                "virtual_builder_tags":["qt4"]
+            }
+        },
+        "qt5":{
+            "properties":{
+                "cmake_defs":{
+                     "DESIRED_QT_VERSION": "5"
+                },
+                "virtual_builder_tags":["qt5"]
+            }
+        },
+        "coverity":{
+            "properties":{
+                "cmake_defs":{
+                    "CMAKE_BUILD_TYPE":"Debug"
+                },
+                "virtual_builder_tags":["coverity"],
+                "cov_path": "/coverity/bin"
+            }
+        },
+        "coverage":{
+            "properties":{
+                "cmake_defs":{
+                    "CMAKE_BUILD_TYPE":"Coverage"
+                },
+                "virtual_builder_tags":["coverage"]
+            }
+        }
+    },
+    "builders":{
+        "maint":{
+            "important": ["master"],
+            "builds":[
+                {
+                    "opts": ["python2", "qt4"],
+                    "scheds": ["Ubuntu_14_04_64", "Ubuntu_16_04_64"],
+                    "runners": ["pull"],
+                    "properties": {
+                        "exclude_file": true
+                    }
+                },
+                {
+                    "opts": ["python2", "qt4"],
+                    "scheds": ["Ubuntu_14_04_64", "Ubuntu_16_04_64", "Fedora_26"],
+                    "runners": ["push", "time"],
+                    "properties": {
+                        "test_excludes": ["qa_qtgui",
+                                          "qa_polarencoder",
+                                          "qa_udp_source_sink",
+                                          "qa_zeromq_pub",
+                                          "qa_header_payload_demux"]
+                    }
+                },
+                {
+                    "opts": ["coverity"],
+                    "scheds": ["coverity"],
+                    "runners": ["time"]
+                }
+            ]
+        },
+        "master":{
+            "builds": [
+                {
+                    "opts": ["python2", "qt4"],
+                    "scheds": ["Ubuntu_14_04_64", "Ubuntu_16_04_64", "Fedora_26"],
+                    "runners": ["pull"],
+                    "properties": {
+                        "exclude_file": true
+                    }
+                },
+                {
+                    "opts": ["python2", "qt4"],
+                    "scheds": ["Ubuntu_14_04_64", "Ubuntu_16_04_64", "Fedora_26"],
+                    "runners": ["push", "time"],
+                    "properties": {
+                        "test_excludes": ["qa_qtgui",
+                                          "qa_polarencoder",
+                                          "qa_udp_source_sink",
+                                          "qa_zeromq_pub",
+                                          "qa_header_payload_demux"]
+                    }
+                },
+                {
+                    "opts": ["python2", "coverity"],
+                    "scheds": ["coverity"],
+                    "runners": ["time"]
+                }
+            ]
+        },
+        "next":{
+            "builds": [
+                {
+                    "opts": ["python2", "qt5"],
+                    "scheds": ["Ubuntu_16_04_64", "Fedora_26"],
+                    "runners": ["pull"],
+                    "properties": {
+                        "exclude_file": true
+                    }
+                },
+                {
+                    "opts": ["python2", "qt5"],
+                    "scheds": ["Ubuntu_16_04_64", "Fedora_26"],
+                    "runners": ["push", "time"],
+                    "properties": {
+                        "test_excludes": ["qa_qtgui",
+                                          "qa_polarencoder",
+                                          "qa_udp_source_sink",
+                                          "qa_zeromq_pub",
+                                          "qa_header_payload_demux"]
+                    }
+                },
+                {
+                    "opts": ["python2", "qt4"],
+                    "scheds": ["Ubuntu_16_04_64", "Fedora_26"],
+                    "runners": ["time"],
+                    "properties": {
+                        "test_excludes": ["qa_qtgui",
+                                          "qa_polarencoder",
+                                          "qa_udp_source_sink",
+                                          "qa_zeromq_pub",
+                                          "qa_header_payload_demux"]
+                    }
+                }
+            ]
+        },
+        "python3":{
+            "bases": ["python3"],
+            "builds":[
+                {
+                    "opts": ["python2", "qt5"],
+                    "scheds": ["Ubuntu_16_04_64", "Fedora_26"],
+                    "runners": ["pull", "push", "time"],
+                    "properties": {
+                        "test_excludes": ["qa_qtgui",
+                                          "qa_polarencoder",
+                                          "qa_udp_source_sink",
+                                          "qa_zeromq_pub",
+                                          "qa_header_payload_demux"]
+                    }
+                },
+                {
+                    "opts": ["python3", "qt5"],
+                    "scheds": ["Ubuntu_16_04_64", "Fedora_26"],
+                    "runners": ["pull", "push", "time"],
+                    "properties": {
+                        "test_excludes": ["qa_qtgui",
+                                          "qa_polarencoder",
+                                          "qa_udp_source_sink",
+                                          "qa_zeromq_pub",
+                                          "qa_header_payload_demux"]
+                    }
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,78 @@
+version: '2'
+services:
+  buildbot:
+    container_name: bb-master
+    image: noc0lour/gnuradio-buildbot-master:latest
+    env_file:
+        - db.env
+        - bb.env
+    environment:
+        - BUILDBOT_WORKER_PORT=9989
+        - BUILDBOT_WEB_URL=http://localhost:8010/
+        - BUILDBOT_WEB_PORT=8010
+        - BUILDBOT_SRC_BASE=/data/src
+    links:
+      - bb-db
+    depends_on:
+      - bb-db
+      - bb-data
+    ports:
+      - "8010:8010"
+      - "9989:9989"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../master.cfg:/var/lib/buildbot/master.cfg:ro
+      - ../buildbot.tac:/var/lib/buildbot/buildbot.tac
+      - ../start_buildbot.sh:/var/lib/buildbot/start_buildbot.sh
+      - ../config_module:/var/lib/buildbot/config_module:ro
+      - ../gnuradio_buildbot:/var/lib/buildbot/gnuradio_buildbot:ro
+    networks:
+      bb-internal:
+        aliases:
+          - master
+      bb-db:
+        aliases:
+          - master
+  bb-db:
+    container_name: bb-db
+    env_file:
+        - db.env
+    image: "postgres:9.4"
+    expose:
+        - 5432
+    networks:
+      bb-db:
+        aliases:
+          - db
+  bb-data:
+    container_name: bb-data
+    image: "alpine:3.5"
+    command: echo 'Data-only container'
+    volumes:
+      - /opt/bb/data:/data
+      - ./data:/config
+      - /opt/bb/mnt/cache/:/cache
+      - /efs/appdata/coverity/coverity:/coverity:ro
+    networks:
+      bb-internal:
+        aliases:
+          - data
+
+
+networks:
+  bb-internal:
+    external:
+      name: bb-internal
+  bb-db:
+
+  # worker:
+  #   image: "buildbot/buildbot-worker:master"
+  #   environment:
+  #       BUILDMASTER: buildbot
+  #       BUILDMASTER_PORT: 9989
+  #       WORKERNAME: example-worker
+  #       WORKERPASS: pass
+  #       WORKER_ENVIRONMENT_BLACKLIST: DOCKER_BUILDBOT* BUILDBOT_ENV_* BUILDBOT_1* WORKER_ENVIRONMENT_BLACKLIST
+
+  #   links:
+  #       - buildbot
