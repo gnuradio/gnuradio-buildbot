@@ -19,13 +19,13 @@
 #
 
 from buildbot.plugins import util
-from control_PR import build_PR
-from control_volk_PR import build_volk_PR
-from control_push import build_push
-from control_weekly import build_weekly
-from build_GR import build_and_test
-from build_coverity import build_coverity
-from build_coverage import build_coverage
+from .control_PR import build_PR
+from .control_volk_PR import build_volk_PR
+from .control_push import build_push
+from .control_weekly import build_weekly
+from .build_GR import build_and_test
+from .build_coverity import build_coverity
+from .build_coverage import build_coverage
 
 
 def filterWorkers(workers, what, attr):
