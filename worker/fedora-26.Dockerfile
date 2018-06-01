@@ -52,6 +52,7 @@ RUN dnf install -y \
         desktop-file-utils \
 # next
         python-mako \
+        python3-mako \
         log4cpp-devel \
         PyQt5-devel \
         && \
