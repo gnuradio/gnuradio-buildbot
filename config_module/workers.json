@@ -1,5 +1,13 @@
 {
     "Linux":{
+        "Ubuntu_18_04_64":{
+            "image": "noc0lour/gnuradio-buildbot-worker:ubuntu-18.04",
+            "properties":{
+                "tasks": ["build", "coverity"],
+                "make_opts": ["-j16", "-l32"]
+            },
+            "workers": 1
+        },
         "Ubuntu_16_04_64":{
             "image": "noc0lour/gnuradio-buildbot-worker:ubuntu-16.04",
             "properties":{
