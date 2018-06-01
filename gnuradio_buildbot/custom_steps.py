@@ -58,7 +58,6 @@ class BuildTrigger(steps.Trigger):
                  src_base="/tmp/src",
                  build_config=None,
                  runner="pull",
-                 test_merge=True,
                  **kwargs):
         """
         branch_config is a dict with the key branches
@@ -69,7 +68,6 @@ class BuildTrigger(steps.Trigger):
             raise Exception("build_config must contain build definition")
         self.build_config = build_config
         self.test_branches = self.build_config.get("builders").keys()
-        self.test_merge = test_merge
         self.src_base = src_base
         self.runner = runner
         super(BuildTrigger, self).__init__(**kwargs)
@@ -81,30 +79,13 @@ class BuildTrigger(steps.Trigger):
         for branch in self.test_branches:
             branch_config = self.build_config["builders"][branch]
             # only test this if we want to test for merges
-            if self.test_merge and self.build.getProperty("merge_" + branch):
-                bases = branch_config.get("bases", None)
-                if (bases is not None
-                        and self.set_properties.get("pr_base", "") not in bases
-                        and self.build.getProperty("branch", "") not in bases):
-                    continue
-            else:
-                # test if the branch to build corresponds
-                # to the current branch config
-                if not (self.build.getProperty("branch", "") == branch or self.set_properties.get("pr_base", "") == branch):
-                    continue
+            # test if the branch to build corresponds
+            # to the current branch config
+            if not (self.build.getProperty("branch", "") == branch or self.set_properties.get("pr_base", "") == branch):
+                continue
             for build in branch_config.get("builds", ()):
                 if self.runner not in build.get("runners", ()):
                     continue
-                bases = build.get("bases", None)
-                # only test this if we want to test for merges
-                if self.test_merge:
-                    if (bases is not None
-                        and self.set_properties.get(
-                            "pr_base", "") not in bases
-                        and self.build.getProperty(
-                            "branch", "") not in bases):
-                        continue
-
                 props = copy.deepcopy(self.set_properties)
                 opts = build.get("opts", ())
                 build_scheds = build.get("scheds", ())
@@ -129,15 +110,8 @@ class BuildTrigger(steps.Trigger):
                         s_props.get("virtual_builder_tags", ())))
                     s_props.update({"virtual_builder_name": virtual_name})
                     scheds.append({
-                        "sched_name":
-                        "trigger_" + sched,
-                        "props_to_set":
-                        s_props,
-                        "unimportant":
-                        not (branch in self.build_config["builders"].get(
-                            s_props.get("pr_base", ""), {}).get(
-                                "important",
-                                ()) or branch == s_props.get("pr_base", "")
-                             or branch == self.build.getProperty("branch", ""))
+                        "sched_name": "trigger_" + sched,
+                        "props_to_set": s_props,
+                        "unimportant": False
                     })
         return scheds

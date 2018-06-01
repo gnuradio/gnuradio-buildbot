@@ -82,7 +82,6 @@ def build_volk_PR():
             "src_dir": util.Interpolate(os.path.join(
                 _PULL_SRC_BASE, "%(prop:github.number)s"))
         },
-        test_merge=False,
         updateSourceStamp=False,
         waitForFinish=True
     )

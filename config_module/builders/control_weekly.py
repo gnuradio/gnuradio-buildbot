@@ -62,12 +62,6 @@ def build_weekly():
         )
     )
 
-    set_merge_property = steps.SetProperty(
-        property=util.Interpolate("merge_%(prop:branch)s"),
-        value=True,
-        hideStepIf=True,
-    )
-
     # load builders.json with definitions on how to build things
     parent_path = os.path.dirname(__file__)
     with open(os.path.join(parent_path, "builders.json"), "r") as builders_file:
@@ -95,6 +89,5 @@ def build_weekly():
     factory.addStep(clone_step)
     factory.addStep(rm_src_dir)
     factory.addStep(copy_src)
-    factory.addStep(set_merge_property)
     factory.addStep(trigger_builds)
     return factory
