@@ -1,7 +1,7 @@
-FROM ubuntu:14.04
+FROM ubuntu:18.04
 MAINTAINER Andrej Rode <mail@andrejro.de>
 
-ENV security_updates_as_of 2018-01-08
+ENV security_updates_as_of 2018-05-20
 
 # Prepare distribution
 RUN apt-get update -q \
@@ -11,24 +11,24 @@ RUN apt-get update -q \
 RUN DEBIAN_FRONTEND=noninteractive \
        apt-get install -qy \
          libasound2 \
-         libboost-date-time1.54.0 \
-         libboost-filesystem1.54.0 \
-         libboost-program-options1.54.0 \
-         libboost-thread1.54.0 \
+         libboost-date-time1.65.1 \
+         libboost-filesystem1.65.1 \
+         libboost-program-options1.65.1 \
+         libboost-thread1.65.1 \
          libcomedi0 \
          libfftw3-bin \
-         libgsl0ldbl \
-         libgtk-3-0 \
          libgmp10 \
+         libgsl23 \
+         libgtk-3-0 \
          libjack-jackd2-0 \
-         liblog4cpp5 \
+         liblog4cpp5v5 \
          libpangocairo-1.0-0 \
          libportaudio2 \
-         libqwt6 \
+         libqwt6abi1 \
          libsdl-image1.2 \
-         libuhd003 \
+         libuhd003.010.003 \
          libusb-1.0-0 \
-         libzmq3 \
+         libzmq5 \
          pkg-config \
          --no-install-recommends \
     && apt-get clean
@@ -46,7 +46,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
          python-numpy \
          python-opengl \
          python-qt4 \
-         python-wxgtk2.8 \
+         python-pyqt5 \
+         python-wxgtk3.0 \
          python-yaml \
          python-zmq \
          --no-install-recommends \
@@ -58,11 +59,12 @@ RUN DEBIAN_FRONTEND=noninteractive \
          python3-mako \
          python3-dev \
          python3-gi \
+         python3-gi-cairo \
          python3-lxml \
          python3-numpy \
          python3-opengl \
-         python-qt4 \
-         python-wxgtk2.8 \
+         python3-pyqt5 \
+         python-wxgtk3.0 \
          python3-yaml \
          python3-zmq \
          python-six \
@@ -95,12 +97,14 @@ RUN mv /sbin/sysctl /sbin/sysctl.orig \
        libqt4-dev \
        libqwt-dev \
        libqwt5-qt4 \
+       qtbase5-dev \
        libsdl1.2-dev \
        libuhd-dev \
        libusb-1.0-0-dev \
        libzmq3-dev \
        portaudio19-dev \
        pyqt4-dev-tools \
+       pyqt5-dev-tools \
        python-cheetah \
        python-sphinx \
        doxygen \
@@ -142,11 +146,10 @@ RUN         curl -Lo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/
 # ubuntu pip version has issues so we should upgrade it: https://github.com/pypa/pip/pull/3287
             pip3 install -U pip virtualenv
 # Install required python packages, and twisted
-RUN         pip3 install --upgrade \
+RUN         pip3 --no-cache-dir install \
                 'twisted[tls]' \
                 'buildbot_worker' \
                 'xvfbwrapper' && \
-
     useradd -u 2017 -ms /bin/bash buildbot && chown -R buildbot /buildbot && \
     echo "max_size = 20G" > /etc/ccache.conf
 

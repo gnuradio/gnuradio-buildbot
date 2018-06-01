@@ -1,7 +1,7 @@
 FROM fedora:26
 MAINTAINER Andrej Rode <mail@andrejro.de>
 
-ENV security_updates_as_of 2018-01-06
+ENV security_updates_as_of 2018-05-20
 
 RUN dnf install -y \
 # General building
@@ -10,11 +10,12 @@ RUN dnf install -y \
         make \
         gcc \
         gcc-c++ \
-        python-pip \
+        python3-pip \
         shadow-utils \
 # Build infrastructure
         cmake \
         boost-devel \
+        python3-devel \
         python-devel \
         swig \
         cppunit-devel \
@@ -77,9 +78,9 @@ RUN dnf install -y \
 COPY buildbot.tac /buildbot/buildbot.tac
 
         # ubuntu pip version has issues so we should upgrade it: https://github.com/pypa/pip/pull/3287
-RUN     pip install -U pip virtualenv
+RUN     pip3 install -U pip virtualenv
         # Install required python packages, and twisted
-RUN     pip --no-cache-dir install \
+RUN     pip3 --no-cache-dir install \
             'buildbot-worker' \
             'twisted[tls]' && \
             useradd -u 2017 -ms /bin/bash buildbot && chown -R buildbot /buildbot && \

@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 MAINTAINER Andrej Rode <mail@andrejro.de>
 
-ENV security_updates_as_of 2018-01-08
+ENV security_updates_as_of 2018-05-20
 
 # Prepare distribution
 RUN apt-get update -q \
@@ -138,7 +138,7 @@ RUN apt-get -y install -q \
                 subversion \
                 libffi-dev \
                 libssl-dev \
-                python-pip \
+                python3-pip \
                 curl
 
 # Test runs produce a great quantity of dead grandchild processes.  In a
@@ -147,13 +147,12 @@ RUN apt-get -y install -q \
 RUN         curl -Lo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.1.3/dumb-init_1.1.3_amd64 && \
             chmod +x /usr/local/bin/dumb-init && \
 # ubuntu pip version has issues so we should upgrade it: https://github.com/pypa/pip/pull/3287
-            pip install -U pip virtualenv
+            pip3 install -U pip virtualenv
 # Install required python packages, and twisted
-RUN         pip --no-cache-dir install \
+RUN         pip3 --no-cache-dir install \
                 'twisted[tls]' \
                 'buildbot_worker' \
                 'xvfbwrapper' && \
-
     useradd -u 2017 -ms /bin/bash buildbot && chown -R buildbot /buildbot && \
     echo "max_size = 20G" > /etc/ccache.conf
 
