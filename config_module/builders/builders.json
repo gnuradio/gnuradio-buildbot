@@ -115,6 +115,51 @@
                     "runners": ["time"]
                 }
             ]
+        },
+        "next":{
+            "builds":[
+                {
+                    "opts": ["python3", "qt5"],
+                    "scheds": ["Ubuntu_16_04_64", "Ubuntu_18_04_64", "Fedora_26"],
+                    "runners": ["pull"],
+                    "properties": {
+                        "exclude_file": true
+                    }
+                },
+                {
+                    "opts": ["python2", "qt5"],
+                    "scheds": ["Ubuntu_16_04_64", "Ubuntu_18_04_64", "Fedora_26"],
+                    "runners": ["pull"],
+                    "properties": {
+                        "exclude_file": true
+                    }
+                },
+                {
+                    "opts": ["python3", "qt5"],
+                    "scheds": ["Ubuntu_16_04_64", "Ubuntu_18_04_64", "Fedora_26"],
+                    "runners": ["push", "time"],
+                    "properties": {
+                        "test_excludes": ["qa_qtgui",
+                                          "qa_polarencoder",
+                                          "qa_udp_source_sink",
+                                          "qa_zeromq_pub",
+                                          "qa_header_payload_demux"]
+                    }
+                },
+                {
+                    "opts": ["python2", "qt5"],
+                    "scheds": ["Ubuntu_16_04_64", "Ubuntu_18_04_64", "Fedora_26"],
+                    "runners": ["push", "time"],
+                    "properties": {
+                        "test_excludes": ["qa_qtgui",
+                                          "qa_polarencoder",
+                                          "qa_udp_source_sink",
+                                          "qa_zeromq_pub",
+                                          "qa_header_payload_demux"]
+                    }
+                }
+
+            ]
         }
     }
 }
