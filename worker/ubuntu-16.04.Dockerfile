@@ -29,6 +29,9 @@ RUN DEBIAN_FRONTEND=noninteractive \
          libuhd003 \
          libusb-1.0-0 \
          libzmq5 \
+         libpango-1.0-0 \
+         gir1.2-gtk-3.0 \
+         gir1.2-pango-1.0 \
          pkg-config \
          --no-install-recommends \
     && apt-get clean
@@ -161,5 +164,3 @@ USER buildbot
 WORKDIR /buildbot
 
 CMD ["/usr/local/bin/dumb-init", "twistd", "-ny", "buildbot.tac"]
-
-
