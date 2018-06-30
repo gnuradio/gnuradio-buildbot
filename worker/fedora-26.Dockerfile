@@ -4,7 +4,7 @@ MAINTAINER Andrej Rode <mail@andrejro.de>
 ENV security_updates_as_of 2018-01-06
 
 RUN dnf install -y \
-        # General building
+# General building
         ccache \
         cmake \
         make \
@@ -55,6 +55,7 @@ RUN dnf install -y \
         python3-mako \
         log4cpp-devel \
         PyQt5-devel \
+        python3-PyQt5 \
 # GRC/next
         PyYAML \
         python3-PyYAML \
@@ -70,7 +71,6 @@ RUN dnf install -y \
         # Test runs produce a great quantity of dead grandchild processes.  In a
         # non-docker environment, these are automatically reaped by init (process 1),
         # so we need to simulate that here.  See https://github.com/Yelp/dumb-init
-
         curl -Lo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.1.3/dumb-init_1.1.3_amd64 && \
         chmod +x /usr/local/bin/dumb-init
 
