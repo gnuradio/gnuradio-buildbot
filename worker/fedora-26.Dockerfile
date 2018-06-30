@@ -60,8 +60,8 @@ RUN dnf install -y \
         python3-PyYAML \
         python-lxml \
         python3-lxml \
-        python-gobject-base \
-        python3-gobject-base \
+        python-gobject \
+        python3-gobject \
         pycairo \
         python3-cairo \
         pango \
