@@ -55,11 +55,22 @@ RUN dnf install -y \
         python3-mako \
         log4cpp-devel \
         PyQt5-devel \
+# GRC/next
+        python-PyYAML \
+        python3-PyYAML \
+        python-lxml \
+        python3-lxml \
+        python-gobject-base \
+        python3-gobject-base \
+        python-cairo \
+        python3-cairo \
+        pango \
         && \
         dnf clean all && \
         # Test runs produce a great quantity of dead grandchild processes.  In a
         # non-docker environment, these are automatically reaped by init (process 1),
         # so we need to simulate that here.  See https://github.com/Yelp/dumb-init
+
         curl -Lo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.1.3/dumb-init_1.1.3_amd64 && \
         chmod +x /usr/local/bin/dumb-init
 
