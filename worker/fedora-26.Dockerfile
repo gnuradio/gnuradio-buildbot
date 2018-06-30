@@ -56,13 +56,13 @@ RUN dnf install -y \
         log4cpp-devel \
         PyQt5-devel \
 # GRC/next
-        python-PyYAML \
+        PyYAML \
         python3-PyYAML \
         python-lxml \
         python3-lxml \
         python-gobject-base \
         python3-gobject-base \
-        python-cairo \
+        pycairo \
         python3-cairo \
         pango \
         && \
