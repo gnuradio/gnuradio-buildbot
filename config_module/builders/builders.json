@@ -3,7 +3,7 @@
         "hardened":{
             "properties": {
                 "cmake_defs":{
-                    "CMAKE_CXX_COMPILER_FLAGS": "-D_GLIBCXX_ASSERTIONS"
+                    "CMAKE_CXX_FLAGS": "-D_GLIBCXX_ASSERTIONS"
                 }
             }
         },
