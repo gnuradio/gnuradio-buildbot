@@ -54,6 +54,7 @@ RUN dnf install -y \
 # next
         python-mako \
         python3-mako \
+        python3-zmq \
         log4cpp-devel \
         PyQt5-devel \
         python3-PyQt5 \
