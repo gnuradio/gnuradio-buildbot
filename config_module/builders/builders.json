@@ -55,6 +55,14 @@
                 },
                 "virtual_builder_tags":["coverage"]
             }
+        },
+        "nodeprecated":{
+            "properties":{
+                "cmake_defs":{
+                    "CMAKE_CXX_FLAGS": "-Wno-deprecated-declarations"
+                },
+                "virtual_builder_tags":["nodeprecated"]
+            }
         }
     },
     "builders":{
@@ -90,7 +98,7 @@
         "master":{
             "builds": [
                 {
-                    "opts": ["python2", "qt4"],
+                    "opts": ["python2", "qt4", "nodeprecated"],
                     "scheds": ["Ubuntu_16_04_64", "Ubuntu_18_04_64", "Fedora_26"],
                     "runners": ["pull"],
                     "properties": {
@@ -98,7 +106,7 @@
                     }
                 },
                 {
-                    "opts": ["python2", "qt4"],
+                    "opts": ["python2", "qt4", "nodeprecated"],
                     "scheds": ["Ubuntu_16_04_64", "Ubuntu_18_04_64", "Fedora_26"],
                     "runners": ["push", "time"],
                     "properties": {
@@ -110,7 +118,7 @@
                     }
                 },
                 {
-                    "opts": ["python2", "coverity"],
+                    "opts": ["python2", "coverity", "nodeprecated"],
                     "scheds": ["coverity"],
                     "runners": ["time"]
                 }
