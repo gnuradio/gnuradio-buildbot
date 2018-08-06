@@ -157,6 +157,18 @@
                                           "qa_zeromq_pub",
                                           "qa_header_payload_demux"]
                     }
+                },
+                {
+                    "opts": ["python3", "coverage"],
+                    "scheds": ["Ubuntu_16_04_64", "Ubuntu_18_04_64", "Fedora_26"],
+                    "runners": ["pull", "push"],
+                    "properties": {
+                        "test_excludes": ["qa_qtgui",
+                                          "qa_polarencoder",
+                                          "qa_udp_source_sink",
+                                          "qa_zeromq_pub",
+                                          "qa_header_payload_demux"]
+                    }
                 }
 
             ]
