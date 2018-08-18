@@ -30,6 +30,7 @@ RUN dnf install -y \
         numpy \
         scipy \
         python3-scipy \
+        gmp-devel \
 # IO libraries
         SDL-devel \
         alsa-lib-devel \
