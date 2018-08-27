@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 MAINTAINER Andrej Rode <mail@andrejro.de>
 
-ENV security_updates_as_of 2018-05-20
+ENV security_updates_as_of 2018-08-27
 
 # Prepare distribution
 RUN apt-get update -q \
@@ -100,6 +100,7 @@ RUN mv /sbin/sysctl /sbin/sysctl.orig \
        libqt4-dev \
        libqwt-dev \
        libqwt5-qt4 \
+       libqwt-qt5-dev \
        qtbase5-dev \
        libsdl1.2-dev \
        libuhd-dev \

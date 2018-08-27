@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 MAINTAINER Andrej Rode <mail@andrejro.de>
 
-ENV security_updates_as_of 2018-05-20
+ENV security_updates_as_of 2018-08-27
 
 # Prepare distribution
 RUN apt-get update -q \
