@@ -1,7 +1,7 @@
 FROM fedora:26
 MAINTAINER Andrej Rode <mail@andrejro.de>
 
-ENV security_updates_as_of 2018-05-20
+ENV security_updates_as_of 2018-08-27
 
 RUN dnf install -y \
 # General building
