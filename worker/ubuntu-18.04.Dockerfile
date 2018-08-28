@@ -100,6 +100,7 @@ RUN mv /sbin/sysctl /sbin/sysctl.orig \
        libqt4-dev \
        libqwt-dev \
        libqwt5-qt4 \
+       libqwt-qt5-dev \
        qtbase5-dev \
        libsdl1.2-dev \
        libuhd-dev \
