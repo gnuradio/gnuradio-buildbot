@@ -41,6 +41,11 @@ RUN dnf install -y \
 ## Gnuradio deprecated gr-comedi
 ## http://gnuradio.org/redmine/issues/show/395
         comedilib-devel \
+# ctrlport - thrift
+        thrift \
+        thrift-devel \
+        python-thrift \
+        thrift-glib \
 # GUI libraries
         wxPython-devel \
         PyQt4-devel \
