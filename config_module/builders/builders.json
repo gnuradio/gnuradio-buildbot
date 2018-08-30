@@ -120,7 +120,7 @@
             "builds":[
                 {
                     "opts": ["python3", "qt5"],
-                    "scheds": ["Ubuntu_16_04_64", "Ubuntu_18_04_64", "Fedora_26"],
+                    "scheds": ["Ubuntu_16_04_64", "Ubuntu_18_04_64", "Fedora_26", "Fedora_28"],
                     "runners": ["pull"],
                     "properties": {
                         "exclude_file": true
@@ -128,7 +128,7 @@
                 },
                 {
                     "opts": ["python2", "qt5"],
-                    "scheds": ["Ubuntu_16_04_64", "Ubuntu_18_04_64", "Fedora_26"],
+                    "scheds": ["Ubuntu_16_04_64", "Ubuntu_18_04_64", "Fedora_26", "Fedora_28"],
                     "runners": ["pull"],
                     "properties": {
                         "exclude_file": true
@@ -136,7 +136,7 @@
                 },
                 {
                     "opts": ["python3", "qt5"],
-                    "scheds": ["Ubuntu_16_04_64", "Ubuntu_18_04_64", "Fedora_26"],
+                    "scheds": ["Ubuntu_16_04_64", "Ubuntu_18_04_64", "Fedora_26", "Fedora_28"],
                     "runners": ["push", "time"],
                     "properties": {
                         "test_excludes": ["qa_qtgui",
@@ -148,7 +148,7 @@
                 },
                 {
                     "opts": ["python2", "qt5"],
-                    "scheds": ["Ubuntu_16_04_64", "Ubuntu_18_04_64", "Fedora_26"],
+                    "scheds": ["Ubuntu_16_04_64", "Ubuntu_18_04_64", "Fedora_26", "Fedora_28"],
                     "runners": ["push", "time"],
                     "properties": {
                         "test_excludes": ["qa_qtgui",
