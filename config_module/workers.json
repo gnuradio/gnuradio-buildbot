@@ -40,6 +40,14 @@
             },
             "workers": 1
         },
+        "Fedora_29":{
+            "image": "noc0lour/gnuradio-buildbot-worker:f29",
+            "properties":{
+                "tasks":["build"],
+                "make_opts": ["-j16", "-l32"]
+            },
+            "workers": 1
+        },
         "Controller":{
             "image": "noc0lour/gnuradio-buildbot-worker:controller",
             "properties":{
