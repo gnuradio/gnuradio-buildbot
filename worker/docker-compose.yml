@@ -1,0 +1,46 @@
+version: '2'
+services:
+    worker_f29:
+        build: 
+          context: ./
+          dockerfile: ./fedora-29.Dockerfile
+        image: noc0lour/gnuradio-buildbot-worker:f29
+        container_name: worker_f29
+    worker_f28:
+        build:
+          context: ./
+          dockerfile: ./fedora-28.Dockerfile
+        image: noc0lour/gnuradio-buildbot-worker:f28
+        container_name: worker_f28
+    worker_f26:
+        build: 
+          context: ./
+          dockerfile: ./fedora-26.Dockerfile
+        image: noc0lour/gnuradio-buildbot-worker:f26
+        container_name: worker_f26
+    worker_u1804:
+        build:
+          context: ./
+          dockerfile: ./ubuntu-18.04.Dockerfile
+        image: noc0lour/gnuradio-buildbot-worker:ubuntu-18.04
+        container_name: worker_u1804
+    worker_u1604:
+        build:
+          context: ./
+          dockerfile: ./ubuntu-16.04.Dockerfile
+        image: noc0lour/gnuradio-buildbot-worker:ubuntu-16.04
+        container_name: worker_u1604
+    worker_u1404:
+        build:
+          context: ./
+          dockerfile: ./ubuntu-14.04.Dockerfile
+        image: noc0lour/gnuradio-buildbot-worker:ubuntu-14.04
+        container_name: worker_u1404
+    worker_controller:
+        build: 
+          context: ./
+          dockerfile: ./controller.Dockerfile
+        image: noc0lour/gnuradio-buildbot-worker:controller
+        container_name: worker_controller
+
+
