@@ -1,6 +1,9 @@
 version: '2'
 services:
   buildbot:
+    build:
+        context: ./
+        dockerfile: Dockerfile
     container_name: bb-master
     image: noc0lour/gnuradio-buildbot-master:latest
     env_file:
@@ -50,7 +53,7 @@ services:
     command: echo 'Data-only container'
     volumes:
       - /opt/bb/data:/data
-      - ./data:/config
+      - ../data:/config
       - /opt/bb/mnt/cache/:/cache
       - /efs/appdata/coverity/coverity:/coverity:ro
     networks:
