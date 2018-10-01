@@ -44,7 +44,7 @@ services:
           - db
   bb-data:
     container_name: bb-data
-    image: "alpine:3.5"
+    image: "alpine:3.8"
     command: echo 'Data-only container'
     volumes:
       - /tmp/bb/data:/data
