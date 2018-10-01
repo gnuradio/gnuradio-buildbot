@@ -118,7 +118,7 @@ def get(builders):
                     branch=util.StringParameter(
                         name="branch",
                         label="test branch",
-                        default="maint", size=80
+                        default="master", size=80
                     ),
                     revision=util.FixedParameter(name="revision", default="")
                 )

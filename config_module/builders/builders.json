@@ -79,11 +79,6 @@
                                           "qa_zeromq_pub",
                                           "qa_header_payload_demux"]
                     }
-                },
-                {
-                    "opts": ["coverity"],
-                    "scheds": ["coverity"],
-                    "runners": ["time"]
                 }
             ]
         },
@@ -140,7 +135,13 @@
                                           "qa_zeromq_pub",
                                           "qa_header_payload_demux"]
                     }
+                },
+                {
+                    "opts": ["python3", "coverity"],
+                    "scheds": ["coverity"],
+                    "runners": ["time"]
                 }
+
 
             ]
         }
