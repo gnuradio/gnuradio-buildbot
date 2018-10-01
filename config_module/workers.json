@@ -7,7 +7,7 @@
                 "image": "noc0lour/gnuradio-buildbot-worker:ubuntu-18.04",
                 "properties":{
                     "tasks": ["build", "coverity"],
-                    "make_opts": ["-j16", "-l32"]
+                    "make_opts": ["-j8", "-l16"]
                 },
                 "workers": 1,
                 "docker_host": "ci-host-01.gnuradio.org"
@@ -18,7 +18,7 @@
             "image": "noc0lour/gnuradio-buildbot-worker:ubuntu-16.04",
             "properties":{
                 "tasks": ["build", "coverity"],
-                "make_opts": ["-j16", "-l32"]
+                "make_opts": ["-j8", "-l16"]
             },
             "workers": 1,
             "docker_host": "ci-host-01.gnuradio.org"
@@ -28,7 +28,7 @@
             "image":"noc0lour/gnuradio-buildbot-worker:ubuntu-14.04",
             "properties":{
                 "tasks": ["build"],
-                "make_opts": ["-j16", "-l32"]
+                "make_opts": ["-j8", "-l16"]
             },
             "workers": 1,
             "docker_host": "ci-host-01.gnuradio.org"
@@ -37,7 +37,7 @@
             "image": "noc0lour/gnuradio-buildbot-worker:f26",
             "properties":{
                 "tasks":["build"],
-                "make_opts": ["-j16", "-l32"]
+                "make_opts": ["-j8", "-l16"]
             },
             "workers": 1,
             "docker_host": "ci-host-02.gnuradio.org"
@@ -46,7 +46,7 @@
             "image": "noc0lour/gnuradio-buildbot-worker:f28",
             "properties":{
                 "tasks":["build"],
-                "make_opts": ["-j16", "-l32"]
+                "make_opts": ["-j8", "-l16"]
             },
             "workers": 1,
             "docker_host": "ci-host-02.gnuradio.org"
@@ -55,7 +55,7 @@
             "image": "noc0lour/gnuradio-buildbot-worker:f29",
             "properties":{
                 "tasks":["build"],
-                "make_opts": ["-j16", "-l32"]
+                "make_opts": ["-j8", "-l16"]
             },
             "workers": 1,
             "docker_host": "ci-host-02.gnuradio.org"
