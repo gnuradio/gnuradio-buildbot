@@ -85,7 +85,7 @@ def build_push():
             "src_dir": util.Interpolate(
                 os.path.join(_PUSH_SRC_BASE,"%(prop:branch)s","%(prop:commit-description)s"))
         },
-        updateSourceStamp=False,
+        updateSourceStamp=True,
         waitForFinish=True
     )
 
