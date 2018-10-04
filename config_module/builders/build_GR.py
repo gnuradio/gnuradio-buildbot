@@ -67,7 +67,7 @@ def build_and_test():
 
     @util.renderer
     def parse_test_excludes(props):
-        command = ["ctest", "--output-on-failure", "--timeout", "30"]
+        command = ["ctest", "--output-on-failure", "--timeout", "120"]
         excludes = props.getProperty("test_excludes", None)
         if excludes is not None:
             command += ["-E", "|".join(excludes)]
