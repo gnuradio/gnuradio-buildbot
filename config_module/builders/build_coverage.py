@@ -63,7 +63,7 @@ def build_coverage():
     upload_coverage_data = steps.ShellCommand(
         command=[
             "bash", "-c",
-            util.Interpolate("bash <(curl -s https://codecov.io/bash) -t "+tokens.codecovToken+" -C %(prop:revision)s -f coverage.info.cleaned")
+            util.Interpolate("bash <(curl -s https://codecov.io/bash) -t "+tokens.codecovToken+" -C %(prop:revision)s -R %(prop:src_dir)s -f coverage.info.cleaned")
         ],
         workdir="build"
     )
