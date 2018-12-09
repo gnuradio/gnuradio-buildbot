@@ -62,13 +62,16 @@ def createWorkers(config_path):
     with open(config_path) as f:
         config_data = f.read()
     config_data = json.loads(config_data)
-    for os_type, os_config in iteritems(config_data):
+    master_fqdn = config_data.get("masterFQDN", None)
+    worker_config = config_data.get("workers")
+    for os_type, os_config in iteritems(worker_config):
         for os_flavour, flavour_config in iteritems(os_config):
             for n in range(flavour_config.get("workers", 1)):
                 name = "_".join([os_flavour, str(n)])
                 props = flavour_config.get("properties", {})
                 props.setdefault("os", os_type)
                 props.setdefault("distro", os_flavour)
+                props.setdefault("masterFQDN", master_fqdn)
                 if "image" in flavour_config:
                     worker = GRLatentWorker(name, flavour_config.get("image"), props)
                 else:
