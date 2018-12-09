@@ -50,6 +50,9 @@ class GRLatentWorker(worker.DockerLatentWorker):
         hostconfig.setdefault(
             "volumes_from", ["bb-data"]
         )
+        hostconfig.setdefault(
+            "sysctls", {"net.ipv6.conf.all.disable_ipv6": "0"}
+        )
         kwargs["hostconfig"] = hostconfig
         kwargs["properties"] = properties
         kwargs["followStartupLogs"] = True
