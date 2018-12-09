@@ -125,18 +125,6 @@
                     }
                 },
                 {
-                    "opts": ["python3", "coverage"],
-                    "scheds": ["coverage"],
-                    "runners": ["pull", "push"],
-                    "properties": {
-                        "test_excludes": ["qa_qtgui",
-                                          "qa_polarencoder",
-                                          "qa_udp_source_sink",
-                                          "qa_zeromq_pub",
-                                          "qa_header_payload_demux"]
-                    }
-                },
-                {
                     "opts": ["python3", "coverity"],
                     "scheds": ["coverity"],
                     "runners": ["time"]
