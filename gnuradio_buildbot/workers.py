@@ -43,6 +43,9 @@ class GRLatentWorker(worker.DockerLatentWorker):
         docker_host = "unix://var/run/docker.sock"
         kwargs.setdefault("docker_host", docker_host)
 
+        kwargs.setdefault("autopull", True)
+        kwargs.setdefault("alwaysPull", True)
+
         hostconfig = kwargs.get("hostconfig", {})
         hostconfig.setdefault(
             "network_mode", "bb-internal"
