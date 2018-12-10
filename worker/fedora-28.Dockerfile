@@ -12,6 +12,7 @@ RUN dnf install -y \
         gcc-c++ \
         python3-pip \
         shadow-utils \
+        xz \
 # Build infrastructure
         cmake \
         boost-devel \
