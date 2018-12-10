@@ -27,16 +27,13 @@ from buildbot.process.results import SKIPPED
 import json
 import os
 
-
 _BASEPATH = os.environ.get("BUILDBOT_SRC_BASE", "/tmp")
 _PULL_SRC_BASE = os.path.join(_BASEPATH, "pull")
 
 
 def build_PR():
 
-    create_src = steps.MakeDirectory(
-        name="create src directory",
-        dir="src")
+    create_src = steps.MakeDirectory(name="create src directory", dir="src")
 
     clone_step = steps.GitHub(
         name="fetch PR source",
@@ -48,26 +45,31 @@ def build_PR():
         clobberOnFailure=True,
         workdir="src")
 
-    rm_src_dir = steps.RemoveDirectory(
-        dir=util.Interpolate(
-            os.path.join(_BASEPATH, "pull",
-                         "%(prop:github.number)s", "%(prop:github.base.ref)s")
-        ),
+    rm_src_archive = steps.ShellCommand(
+        name="remove old source archive",
+        command=[
+            "rm", "-rf", util.Interpolate(
+                os.path.join(_PULL_SRC_BASE,
+                             "%(prop:github.number)s.tar.xz"))
+        ],
+        workdir="src",
+        hideStepIf=lambda results, s: results == SKIPPED or results == SUCCESS)
+
+    create_src_archive = steps.ShellCommand(
+        name="create source archive",
+        command=[
+            "tar", "cJf", util.Interpolate(
+                os.path.join(_PULL_SRC_BASE,
+                             "%(prop:github.number)s.tar.xz")), "."
+        ],
+        workdir="src",
         hideStepIf=lambda results, s: results == SKIPPED or results == SUCCESS,
     )
 
-    copy_src = steps.CopyDirectory(
-        name="copy src to srcdir",
-        src="src",
-        dest=util.Interpolate(
-            os.path.join(_BASEPATH, "pull",
-                         "%(prop:github.number)s", "%(prop:github.base.ref)s"),
-        ),
-        hideStepIf=lambda results, s: results == SKIPPED or results == SUCCESS,
-    )
     # load builders.json with definitions on how to build things
     parent_path = os.path.dirname(__file__)
-    with open(os.path.join(parent_path, "builders.json"), "r") as builders_file:
+    with open(os.path.join(parent_path, "builders.json"),
+              "r") as builders_file:
         build_config = json.loads(builders_file.read())
 
     trigger_builds = custom_steps.BuildTrigger(
@@ -77,17 +79,16 @@ def build_PR():
         runner="pull",
         set_properties={
             "pr_base": util.Property("github.base.ref"),
-            "src_dir": util.Interpolate(os.path.join(
-                _PULL_SRC_BASE, "%(prop:github.number)s"))
+            "src_archive": util.Interpolate(
+                os.path.join(_PULL_SRC_BASE, "%(prop:github.number)s.tar.xz"))
         },
         updateSourceStamp=False,
-        waitForFinish=True
-    )
+        waitForFinish=True)
 
     factory = util.BuildFactory()
     factory.addStep(create_src)
     factory.addStep(clone_step)
-    factory.addStep(rm_src_dir)
-    factory.addStep(copy_src)
+    factory.addStep(rm_src_archive)
+    factory.addStep(create_src_archive)
     factory.addStep(trigger_builds)
     return factory

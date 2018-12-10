@@ -23,6 +23,8 @@ from buildbot.plugins import util
 
 from gnuradio_buildbot import custom_steps
 
+from buildbot.process.results import SUCCESS
+from buildbot.process.results import SKIPPED
 import json
 import os
 
@@ -46,20 +48,25 @@ def build_push():
         getDescription=True,
         workdir="src")
 
-    rm_src_dir = steps.RemoveDirectory(
-        dir=util.Interpolate(
-            os.path.join(_PUSH_SRC_BASE,
-                         "%(prop:branch)s", "%(prop:commit-description)s")
-        )
-    )
+    rm_src_archive = steps.ShellCommand(
+        name="remove old source archive",
+        command=[
+            "rm", "-rf", util.Interpolate(
+                os.path.join(_PUSH_SRC_BASE, "%(prop:branch)s"
+                             "%(prop:commit-description)s.tar.xz"))
+        ],
+        workdir="src",
+        hideStepIf=lambda results, s: results == SKIPPED or results == SUCCESS)
 
-    copy_src = steps.CopyDirectory(
-        name="copy src to srcdir",
-        src="src",
-        dest=util.Interpolate(
-            os.path.join(_PUSH_SRC_BASE,
-                         "%(prop:branch)s", "%(prop:commit-description)s"),
-        )
+    create_src_archive = steps.ShellCommand(
+        name="create source archive",
+        command=[
+            "tar", "cJf", util.Interpolate(
+                os.path.join(_PUSH_SRC_BASE, "%(prop:branch)s"
+                             "%(prop:commit-description)s.tar.xz")), "."
+        ],
+        workdir="src",
+        hideStepIf=lambda results, s: results == SKIPPED or results == SUCCESS,
     )
 
     set_merge_property = steps.SetProperty(
@@ -82,8 +89,8 @@ def build_push():
         schedulerNames=["trigger"],
         runner="push",
         set_properties={
-            "src_dir": util.Interpolate(
-                os.path.join(_PUSH_SRC_BASE,"%(prop:branch)s","%(prop:commit-description)s"))
+            "src_archive": util.Interpolate(
+                os.path.join(_PUSH_SRC_BASE,"%(prop:branch)s","%(prop:commit-description)s.tar.xz"))
         },
         updateSourceStamp=True,
         waitForFinish=True
@@ -92,8 +99,8 @@ def build_push():
     factory = util.BuildFactory()
     factory.addStep(create_src)
     factory.addStep(clone_step)
-    factory.addStep(rm_src_dir)
-    factory.addStep(copy_src)
+    factory.addStep(rm_src_archive)
+    factory.addStep(create_src_archive)
     factory.addStep(set_merge_property)
     factory.addStep(trigger_builds)
     return factory

@@ -2,30 +2,26 @@
     "masterFQDN": "ci-master.gnuradio.org",
     "workers":{
     "Linux":{
-        "Ubuntu_18_04_64":[
-            {
-                "image": "noc0lour/gnuradio-buildbot-worker:ubuntu-18.04",
-                "properties":{
-                    "tasks": ["build", "coverity"],
-                    "make_opts": ["-j8", "-l16"]
-                },
-                "workers": 1,
-                "docker_host": "ci-host-01.gnuradio.org"
-            }
-        ],
-        "Ubuntu_16_04_64":[
-            {
-            "image": "noc0lour/gnuradio-buildbot-worker:ubuntu-16.04",
+        "Ubuntu_18_04_64":[{
+            "image": "gnuradio/buildbot-worker:ubuntu-18.04",
             "properties":{
                 "tasks": ["build", "coverity"],
                 "make_opts": ["-j8", "-l16"]
             },
             "workers": 1,
             "docker_host": "ci-host-01.gnuradio.org"
-            }
-        ],
+        }],
+        "Ubuntu_16_04_64":[{
+            "image": "gnuradio/buildbot-worker:ubuntu-16.04",
+            "properties":{
+                "tasks": ["build", "coverity"],
+                "make_opts": ["-j8", "-l16"]
+            },
+            "workers": 1,
+            "docker_host": "ci-host-01.gnuradio.org"
+        }],
         "Ubuntu_14_04_64":[{
-            "image":"noc0lour/gnuradio-buildbot-worker:ubuntu-14.04",
+            "image":"gnuradio/buildbot-worker:ubuntu-14.04",
             "properties":{
                 "tasks": ["build"],
                 "make_opts": ["-j8", "-l16"]
@@ -34,7 +30,7 @@
             "docker_host": "ci-host-01.gnuradio.org"
         }],
         "Fedora_26":[{
-            "image": "noc0lour/gnuradio-buildbot-worker:f26",
+            "image": "gnuradio/buildbot-worker:f26",
             "properties":{
                 "tasks":["build"],
                 "make_opts": ["-j8", "-l16"]
@@ -43,7 +39,7 @@
             "docker_host": "ci-host-02.gnuradio.org"
         }],
         "Fedora_28":[{
-            "image": "noc0lour/gnuradio-buildbot-worker:f28",
+            "image": "gnuradio/buildbot-worker:f28",
             "properties":{
                 "tasks":["build"],
                 "make_opts": ["-j8", "-l16"]
@@ -52,7 +48,7 @@
             "docker_host": "ci-host-02.gnuradio.org"
         }],
         "Fedora_29":[{
-            "image": "noc0lour/gnuradio-buildbot-worker:f29",
+            "image": "gnuradio/buildbot-worker:f29",
             "properties":{
                 "tasks":["build"],
                 "make_opts": ["-j8", "-l16"]
@@ -61,12 +57,11 @@
             "docker_host": "ci-host-02.gnuradio.org"
         }],
         "Controller":[{
-            "image": "noc0lour/gnuradio-buildbot-worker:controller",
+            "image": "gnuradio/buildbot-worker:controller",
             "properties":{
                 "tasks": ["control"]
             },
-            "workers": 2,
-            "docker_host": "ci-master.gnuradio.org"
+            "workers": 2
         }]
     }
     }

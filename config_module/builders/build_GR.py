@@ -34,9 +34,20 @@ env = {
 
 def build_and_test():
     remove_build = steps.RemoveDirectory("build")
+    remove_src = steps.RemoveDirectory("src")
     create_build = steps.MakeDirectory("build")
+    download_src_archive = steps.FileDownload(
+        mastersrc=util.Property("src_archive"),
+        workerdest="src.tar.xz",
+        workdir="src"
+    )
+    extract_src_archive = steps.ShellCommand(
+        name="Extract source archive",
+        command=["tar", "xJf", "src.tar.xz"],
+        workdir="src"
+    )
     cmake_step = steps.CMake(
-        path=util.Property("src_dir"),
+        path="../src/",
         definitions=util.Property("cmake_defs", {}),
         options=util.Property("cmake_opts", []),
         workdir="build",
@@ -54,21 +65,10 @@ def build_and_test():
         env=env
     )
 
-    def parse_exclude_file(rc, stdout, stderr):
-        exclude_tests = json.loads(stdout)
-        return {"test_excludes": exclude_tests}
-
-
-    load_exclude_file = steps.SetPropertyFromCommand(
-        command=["cat", os.path.join("/config", "test_excludes.json")],
-        extract_fn=parse_exclude_file,
-        doStepIf=lambda steps: steps.getProperty("exclude_file", False)
-    )
-
     @util.renderer
     def parse_test_excludes(props):
         command = ["ctest", "--output-on-failure", "--timeout", "120"]
-        excludes = props.getProperty("test_excludes", None)
+        excludes = ["qtgui"]
         if excludes is not None:
             command += ["-E", "|".join(excludes)]
         return command
@@ -80,8 +80,10 @@ def build_and_test():
 
     factory = util.BuildFactory()
     factory.addStep(remove_build)
+    factory.addStep(remove_src)
     factory.addStep(create_build)
-    factory.addStep(load_exclude_file)
+    factory.addStep(download_src_archive)
+    factory.addStep(extract_src_archive)
     factory.addStep(cmake_step)
     factory.addStep(make_step)
     factory.addStep(test_step)
