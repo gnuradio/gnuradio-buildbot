@@ -52,7 +52,7 @@ def build_push():
         name="remove old source archive",
         command=[
             "rm", "-rf", util.Interpolate(
-                os.path.join(_PUSH_SRC_BASE, "%(prop:branch)s"
+                os.path.join(_PUSH_SRC_BASE, "%(prop:branch)s",
                              "%(prop:commit-description)s.tar.xz"))
         ],
         workdir="src",
@@ -62,7 +62,7 @@ def build_push():
         name="create source archive",
         command=[
             "tar", "cJf", util.Interpolate(
-                os.path.join(_PUSH_SRC_BASE, "%(prop:branch)s"
+                os.path.join(_PUSH_SRC_BASE, "%(prop:branch)s",
                              "%(prop:commit-description)s.tar.xz")), "."
         ],
         workdir="src",
