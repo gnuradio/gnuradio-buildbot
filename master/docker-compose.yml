@@ -1,11 +1,8 @@
 version: '2'
 services:
   buildbot:
-    build:
-        context: ./
-        dockerfile: Dockerfile
     container_name: bb-master
-    image: noc0lour/gnuradio-buildbot-master:latest
+    image: gnuradio/gnuradio-buildbot-master:latest
     env_file:
         - db.env
         - bb.env
@@ -24,15 +21,13 @@ services:
       - "9989:9989"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /data/src:/data/src
       - ../master.cfg:/var/lib/buildbot/master.cfg:ro
       - ../buildbot.tac:/var/lib/buildbot/buildbot.tac
       - ../start_buildbot.sh:/var/lib/buildbot/start_buildbot.sh
       - ../config_module:/var/lib/buildbot/config_module:ro
       - ../gnuradio_buildbot:/var/lib/buildbot/gnuradio_buildbot:ro
     networks:
-      bb-internal:
-        aliases:
-          - master
       bb-db:
         aliases:
           - master
@@ -56,11 +51,6 @@ services:
       - ../data:/config
       - /tmp/cache/:/cache
       - /tmp/coverity/coverity:/coverity:ro
-    networks:
-      bb-internal:
-        aliases:
-          - data
-
 
 networks:
   bb-internal:
