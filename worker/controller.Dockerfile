@@ -35,7 +35,8 @@ RUN \
         musl-dev \
         python3-dev \
         rsync \
-        tar
+        tar \
+        xz
 
 COPY buildbot.tac /buildbot/buildbot.tac
 COPY .gitconfig /buildbot/.gitconfig
