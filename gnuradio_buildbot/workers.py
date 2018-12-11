@@ -89,7 +89,7 @@ def createWorkers(config_path):
                     kwargs = {}
                     if "image" in worker_config:
                         if worker_config.get("docker_host", None) is not None:
-                            kwargs["docker_host"] = flavour_config.get("docker_host")
+                            kwargs["docker_host"] = worker_config.get("docker_host")
                         worker = GRLatentWorker(name, worker_config.get("image"), props, masterFQDN=master_fqdn, **kwargs)
                     else:
                         kwargs["password"] = worker_config.get("password", None)
