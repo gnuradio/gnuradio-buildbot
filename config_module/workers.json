@@ -9,7 +9,7 @@
                 "make_opts": ["-j8", "-l16"]
             },
             "workers": 1,
-            "docker_host": "ci-host-01.gnuradio.org"
+            "docker_host": "tcp://ci-host-01.gnuradio.org:2376"
         }],
         "Ubuntu_16_04_64":[{
             "image": "gnuradio/buildbot-worker:ubuntu-16.04",
@@ -18,7 +18,7 @@
                 "make_opts": ["-j8", "-l16"]
             },
             "workers": 1,
-            "docker_host": "ci-host-01.gnuradio.org"
+            "docker_host": "tcp://ci-host-01.gnuradio.org:2376"
         }],
         "Ubuntu_14_04_64":[{
             "image":"gnuradio/buildbot-worker:ubuntu-14.04",
@@ -27,7 +27,7 @@
                 "make_opts": ["-j8", "-l16"]
             },
             "workers": 1,
-            "docker_host": "ci-host-01.gnuradio.org"
+            "docker_host": "tcp://ci-host-01.gnuradio.org:2376"
         }],
         "Fedora_26":[{
             "image": "gnuradio/buildbot-worker:f26",
@@ -36,7 +36,7 @@
                 "make_opts": ["-j8", "-l16"]
             },
             "workers": 1,
-            "docker_host": "ci-host-02.gnuradio.org"
+            "docker_host": "tcp://ci-host-02.gnuradio.org:2376"
         }],
         "Fedora_28":[{
             "image": "gnuradio/buildbot-worker:f28",
@@ -45,7 +45,7 @@
                 "make_opts": ["-j8", "-l16"]
             },
             "workers": 1,
-            "docker_host": "ci-host-02.gnuradio.org"
+            "docker_host": "tcp://ci-host-02.gnuradio.org:2376"
         }],
         "Fedora_29":[{
             "image": "gnuradio/buildbot-worker:f29",
@@ -54,7 +54,7 @@
                 "make_opts": ["-j8", "-l16"]
             },
             "workers": 1,
-            "docker_host": "ci-host-02.gnuradio.org"
+            "docker_host": "tcp://ci-host-02.gnuradio.org:2376"
         }],
         "Controller":[{
             "image": "gnuradio/buildbot-worker:controller",

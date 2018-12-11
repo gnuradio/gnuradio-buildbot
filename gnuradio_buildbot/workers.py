@@ -28,7 +28,9 @@ from six import iteritems
 
 class GRWorker(worker.Worker):
     def __init__(self, name, properties, *args, **kwargs):
-        password = "grbuildbot",
+        password = "grbuildbot"
+        if kwargs.get("password", None) is not None:
+            password = kwargs.pop("password")
         kwargs["properties"] = properties
 
         super(GRWorker, self).__init__(name, password, *args, **kwargs)
@@ -84,9 +86,13 @@ def createWorkers(config_path):
                     props.setdefault("os", os_type)
                     props.setdefault("distro", os_flavour)
                     props.setdefault("masterFQDN", master_fqdn)
+                    kwargs = {}
                     if "image" in worker_config:
-                        worker = GRLatentWorker(name, worker_config.get("image"), props)
+                        if worker_config.get("docker_host", None) is not None:
+                            kwargs["docker_host"] = flavour_config.get("docker_host")
+                        worker = GRLatentWorker(name, worker_config.get("image"), props, masterFQDN=master_fqdn, **kwargs)
                     else:
-                        worker = GRWorker(name, props)
+                        kwargs["password"] = worker_config.get("password", None)
+                        worker = GRWorker(name, props, **kwargs)
                     workers.append(worker)
     return workers
