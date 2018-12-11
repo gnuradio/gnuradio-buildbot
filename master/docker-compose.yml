@@ -52,10 +52,10 @@ services:
     image: "alpine:3.5"
     command: echo 'Data-only container'
     volumes:
-      - /opt/bb/data:/data
+      - /tmp/bb/data:/data
       - ../data:/config
-      - /opt/bb/mnt/cache/:/cache
-      - /efs/appdata/coverity/coverity:/coverity:ro
+      - /tmp/cache/:/cache
+      - /tmp/coverity/coverity:/coverity:ro
     networks:
       bb-internal:
         aliases:
