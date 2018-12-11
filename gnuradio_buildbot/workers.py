@@ -76,12 +76,12 @@ def createWorkers(config_path):
         for os_flavour, flavour_config in iteritems(os_config):
             worker_count = 0
             for worker_config in flavour_config:
-                for _ in range(worker_config.get("workers", 1)):
+                for local_count in range(worker_config.get("workers", 1)):
                     if worker_config.get("name", None) is None:
                         name = "_".join([os_flavour, str(worker_count)])
                         worker_count += 1
                     else:
-                        name = worker_config.get("name", None)
+                        name = "_".join([worker_config.get("name", None), str(local_count)])
                     props = worker_config.get("properties", {})
                     props.setdefault("os", os_type)
                     props.setdefault("distro", os_flavour)
