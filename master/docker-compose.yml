@@ -60,15 +60,3 @@ networks:
     external:
       name: bb-internal
   bb-db:
-
-  # worker:
-  #   image: "buildbot/buildbot-worker:master"
-  #   environment:
-  #       BUILDMASTER: buildbot
-  #       BUILDMASTER_PORT: 9989
-  #       WORKERNAME: example-worker
-  #       WORKERPASS: pass
-  #       WORKER_ENVIRONMENT_BLACKLIST: DOCKER_BUILDBOT* BUILDBOT_ENV_* BUILDBOT_1* WORKER_ENVIRONMENT_BLACKLIST
-
-  #   links:
-  #       - buildbot
