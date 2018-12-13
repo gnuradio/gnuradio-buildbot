@@ -23,6 +23,8 @@ from buildbot.plugins import util
 
 from gnuradio_buildbot import custom_steps
 
+from buildbot.process.results import SUCCESS
+from buildbot.process.results import SKIPPED
 import json
 import os
 
@@ -35,7 +37,9 @@ def build_weekly():
 
     create_src = steps.MakeDirectory(
         name="create src directory",
+
         dir="src")
+
     clone_step = steps.GitHub(
         name="fetch PR source",
         repourl=util.Property("repository"),
@@ -46,22 +50,26 @@ def build_weekly():
         getDescription=True,
         workdir="src")
 
-    rm_src_dir = steps.RemoveDirectory(
-        dir=util.Interpolate(
-            os.path.join(_WEEKLY_SRC_BASE,
-                         "%(prop:branch)s", "%(prop:commit-description)s")
-        )
-    )
+    rm_src_archive = steps.ShellCommand(
+        name="remove old source archive",
+        command=[
+            "rm", "-rf", util.Interpolate(
+                os.path.join(_WEEKLY_SRC_BASE, "%(prop:branch)s",
+                             "%(prop:commit-description)s.tar.xz"))
+        ],
+        workdir="src",
+        hideStepIf=lambda results, s: results == SKIPPED or results == SUCCESS)
 
-    copy_src = steps.CopyDirectory(
-        name="copy src to srcdir",
-        src="src",
-        dest=util.Interpolate(
-            os.path.join(_WEEKLY_SRC_BASE,
-                         "%(prop:branch)s", "%(prop:commit-description)s"),
-        )
+    create_src_archive = steps.ShellCommand(
+        name="create source archive",
+        command=[
+            "tar", "cJf", util.Interpolate(
+                os.path.join(_WEEKLY_SRC_BASE, "%(prop:branch)s",
+                             "%(prop:commit-description)s.tar.xz")), "."
+        ],
+        workdir="src",
+        hideStepIf=lambda results, s: results == SKIPPED or results == SUCCESS,
     )
-
     # load builders.json with definitions on how to build things
     parent_path = os.path.dirname(__file__)
     with open(os.path.join(parent_path, "builders.json"), "r") as builders_file:
@@ -77,7 +85,7 @@ def build_weekly():
         runner="time",
         set_properties={
             "src_dir": util.Interpolate(
-                os.path.join(_WEEKLY_SRC_BASE, "%(prop:branch)s","%(prop:commit-description)s")),
+                os.path.join(_WEEKLY_SRC_BASE, "%(prop:branch)s","%(prop:commit-description)s.tar.xz")),
             "got_revision": util.Property("got_revision"),
         },
         updateSourceStamp=True,
@@ -87,7 +95,7 @@ def build_weekly():
     factory = util.BuildFactory()
     factory.addStep(create_src)
     factory.addStep(clone_step)
-    factory.addStep(rm_src_dir)
-    factory.addStep(copy_src)
+    factory.addStep(rm_src_archive)
+    factory.addStep(create_src_archive)
     factory.addStep(trigger_builds)
     return factory

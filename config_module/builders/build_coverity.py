@@ -35,9 +35,20 @@ env = {
 
 def build_coverity():
     remove_build = steps.RemoveDirectory("build")
+    remove_src = steps.RemoveDirectory("src")
     create_build = steps.MakeDirectory("build")
+    download_src_archive = steps.FileDownload(
+        mastersrc=util.Property("src_archive"),
+        workerdest="src.tar.xz",
+        workdir="src"
+    )
+    extract_src_archive = steps.ShellCommand(
+        name="Extract source archive",
+        command=["tar", "xJf", "src.tar.xz"],
+        workdir="src"
+    )
     cmake_step = steps.CMake(
-        path=util.Property("src_dir"),
+        path="../src/",
         definitions=util.Property("cmake_defs", {}),
         options=util.Property("cmake_opts", []),
         workdir="build",
@@ -66,7 +77,10 @@ def build_coverity():
 
     factory = util.BuildFactory()
     factory.addStep(remove_build)
+    factory.addStep(remove_src)
     factory.addStep(create_build)
+    factory.addStep(download_src_archive)
+    factory.addStep(extract_src_archive)
     factory.addStep(cmake_step)
     factory.addStep(make_step)
     factory.addStep(compress)
