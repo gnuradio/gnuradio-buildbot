@@ -84,7 +84,7 @@ def build_weekly():
         schedulerNames=["trigger"],
         runner="time",
         set_properties={
-            "src_dir": util.Interpolate(
+            "src_archive": util.Interpolate(
                 os.path.join(_WEEKLY_SRC_BASE, "%(prop:branch)s","%(prop:commit-description)s.tar.xz")),
             "got_revision": util.Property("got_revision"),
         },
