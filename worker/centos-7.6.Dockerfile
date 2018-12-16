@@ -5,11 +5,10 @@ ENV security_updates_as_of 2018-12-04
 
 # enable EPEL for all the newer crazy stuff
 # like CMake 3
-RUN yum install epel-release -y
-RUN yum-config-manager --enable epel-testing --enable epel
+RUN yum install epel-release -y && \
 # get the new packages from EPEL
-RUN yum update -y
-RUN yum install -y \
+        yum --disablerepo=* --enablerepo=epel check-update -y && \
+        yum install -y \
 # General building
         ccache \
         cmake3 \
@@ -81,8 +80,8 @@ RUN yum install -y \
         curl -L http://ftp.halifax.rwth-aachen.de/fedora/linux/development/rawhide/Everything/source/tree/Packages/s/sip-4.19.15-1.fc31.src.rpm > sip.src.rpm && \
         curl -L https://ftp.halifax.rwth-aachen.de/fedora/linux/development/rawhide/Everything/source/tree/Packages/p/python-qt5-5.11.3-6.fc31.src.rpm > python-qt5.src.rpm && \
         curl -L https://download.fedoraproject.org/pub/fedora/linux/releases/29/Everything/source/tree/Packages/q/qwt-6.1.3-9.fc29.src.rpm > qwt.src.rpm && \
-        curl -L https://github.com/swig/swig/archive/rel-3.0.12.tar.gz > swig.tar.gz
-RUN     cd ~ && \
+        curl -L https://github.com/swig/swig/archive/rel-3.0.12.tar.gz > swig.tar.gz && \
+        cd ~ && \
 # install and patch'em
         rpm -i sip.src.rpm && \
         rpm -i python-qt5.src.rpm && \
@@ -129,11 +128,10 @@ RUN     cd ~ && \
         make install && \
 # lastly, clean up:
         cd && \
-        rm -rf rpmbuild swig-rel-3.0.12 *.src.rpm
-
-# We'll need mako, since EPEL doesn't have python36-mako, we'll install it via pip3:
+        rm -rf rpmbuild swig-rel-3.0.12 *.src.rpm && \
+# We'll need mako, since EPEL doesn't have python34-mako, we'll install it via pip3:
 # same for pyzmq and lxml
-RUN     pip3 --no-cache-dir install 'mako' 'pyzmq' 'lxml' && \
+        pip3 --no-cache-dir install 'mako' 'pyzmq' 'lxml' && \
         # Test runs produce a great quantity of dead grandchild processes.  In a
         # non-docker environment, these are automatically reaped by init (process 1),
         # so we need to simulate that here.  See https://github.com/Yelp/dumb-init
