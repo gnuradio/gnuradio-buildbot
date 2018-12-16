@@ -1,5 +1,11 @@
 version: '2'
 services:
+    worker_centos76:
+        build:
+          context: ./
+          dockerfile: ./centos-7.6.Dockerfile
+        image: noc0lour/gnuradio-buildbot-worker:centos-7.6
+        container_name: worker_cos76
     worker_f29:
         build: 
           context: ./

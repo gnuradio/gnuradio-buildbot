@@ -56,6 +56,16 @@
             "workers": 1,
             "docker_host": "tcp://ci-host-02.gnuradio.org:2376"
         }],
+        "Centos_7_6":[{
+            "image": "gnuradio/buildbot-worker:centos-7.6",
+            "properties":{
+                "tasks":["build"],
+                "make_opts": ["-j8", "-l16"]
+            },
+            "workers": 1,
+            "docker_host": "tcp://ci-host-02.gnuradio.org:2376"
+        }],
+
         "Controller":[{
             "image": "gnuradio/buildbot-worker:controller",
             "properties":{
