@@ -102,7 +102,7 @@
                 },
                 {
                     "opts": ["python3", "qt5"],
-                    "scheds": ["Ubuntu_16_04_64", "Ubuntu_18_04_64", "Fedora_26", "Fedora_28", "Fedora_29"],
+                    "scheds": ["Ubuntu_16_04_64", "Ubuntu_18_04_64", "Fedora_26", "Fedora_28", "Fedora_29", "Centos_7_6"],
                     "runners": ["push", "time"],
                     "properties": {
                         "test_excludes": ["qa_qtgui",
