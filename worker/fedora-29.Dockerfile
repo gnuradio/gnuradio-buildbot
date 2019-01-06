@@ -42,6 +42,9 @@ RUN dnf install -y \
 ## Gnuradio deprecated gr-comedi
 ## http://gnuradio.org/redmine/issues/show/395
         comedilib-devel \
+## Vocoder libraries
+        codec2-devel \
+        gsm-devel \
 # ctrlport - thrift
         thrift \
         thrift-devel \
