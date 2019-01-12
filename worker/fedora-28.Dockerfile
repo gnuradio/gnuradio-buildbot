@@ -36,7 +36,8 @@ RUN dnf install -y \
         SDL-devel \
         alsa-lib-devel \
         portaudio-devel \
-        jack-audio-connection-kit \ # because fedora is too stupid to install dependencies
+# because fedora is too stupid to install dependencies
+        jack-audio-connection-kit \
         cppzmq-devel \
         python-zmq \
         uhd-devel \
