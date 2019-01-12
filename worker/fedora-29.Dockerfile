@@ -1,7 +1,7 @@
 FROM fedora:29
 MAINTAINER Andrej Rode <mail@andrejro.de>
 
-ENV security_updates_as_of 2018-09-06
+ENV security_updates_as_of 2019-01-12
 
 RUN dnf install -y \
 # General building
@@ -36,6 +36,7 @@ RUN dnf install -y \
         SDL-devel \
         alsa-lib-devel \
         portaudio-devel \
+       jack-audio-connection-kit \ # because fedora is too stupid to install dependencies
         cppzmq-devel \
         python-zmq \
         uhd-devel \
