@@ -6,8 +6,9 @@ ENV security_updates_as_of 2018-12-04
 # enable EPEL for all the newer crazy stuff
 # like CMake 3
 RUN yum install epel-release -y
+RUN yum-config-manager --enable epel-testing --enable epel
 # get the new packages from EPEL
-RUN yum --disablerepo=* --enablerepo=epel check-update -y
+RUN yum update -y
 RUN yum install -y \
 # General building
         ccache \
@@ -15,7 +16,7 @@ RUN yum install -y \
         make \
         gcc \
         gcc-c++ \
-        python34-pip \
+        python36-pip \
         shadow-utils \
 # for SWIG source build
         automake \
@@ -26,7 +27,7 @@ RUN yum install -y \
         yum-utils \
 # Build infrastructure
         boost-devel \
-        python34-devel \
+        python36-devel \
         python-devel \
         cppunit-devel \
 # Documentation
@@ -39,7 +40,7 @@ RUN yum install -y \
         gsl-devel \
         numpy \
         scipy \
-        python34-scipy \
+        python36-scipy \
         gmp-devel \
 # IO libraries
         SDL-devel \
@@ -64,19 +65,21 @@ RUN yum install -y \
         qt5-qtbase-devel \
 # GRC/next
         PyYAML \
-        python34-PyYAML \
+        python36-PyYAML \
         gtk3 \
         python-gobject \
-        python34-gobject \
+        python36-gobject \
         pycairo \
-        python34-cairo \
+        python36-cairo \
         pango \
         && \
         yum clean all && \
+        rm /usr/bin/python3 && \
+        ln -s /usr/bin/python3.6 /usr/bin/python3 && \
 # download all the source RPMs we'll build later
         cd && \
-        curl -L https://download.fedoraproject.org/pub/fedora/linux/releases/29/Everything/source/tree/Packages/s/sip-4.19.12-9.fc29.src.rpm > sip.src.rpm && \
-        curl -L https://download.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/source/tree/Packages/p/python-qt5-5.11.3-1.fc30.src.rpm > python-qt5.src.rpm && \
+        curl -L http://ftp.halifax.rwth-aachen.de/fedora/linux/development/rawhide/Everything/source/tree/Packages/s/sip-4.19.15-1.fc31.src.rpm > sip.src.rpm && \
+        curl -L https://ftp.halifax.rwth-aachen.de/fedora/linux/development/rawhide/Everything/source/tree/Packages/p/python-qt5-5.11.3-6.fc31.src.rpm > python-qt5.src.rpm && \
         curl -L https://download.fedoraproject.org/pub/fedora/linux/releases/29/Everything/source/tree/Packages/q/qwt-6.1.3-9.fc29.src.rpm > qwt.src.rpm && \
         curl -L https://github.com/swig/swig/archive/rel-3.0.12.tar.gz > swig.tar.gz
 RUN     cd ~ && \
@@ -99,13 +102,13 @@ RUN     cd ~ && \
         rpmbuild -bb sip.spec && \
         # install the freshly built binary and development rpms
         cd ../RPMS/x86_64/ && \
-        rpm -i python2-pyqt5* python34-pyqt5* python2-sip-* python34-sip-* sip-4* && \
+        rpm -i python2-pyqt5* python36-pyqt5* python2-sip-* python36-sip-* sip-4* && \
 # build and install python-qt5 backport
         cd ~/rpmbuild/SPECS/ && \
         yum-builddep -y python-qt5.spec && \
         rpmbuild -bb python-qt5.spec && \
         cd ../RPMS/ && \
-        rpm -i noarch/python-qt5-rpm-macros* x86_64/python2-qt5* x86_64/python34-qt5* && \
+        rpm -i noarch/python-qt5-rpm-macros* x86_64/python2-qt5* x86_64/python36-qt5* && \
         # for some reason, we *must* clean the package database here
         yum clean all && \
 # build and install qwt backport
@@ -128,7 +131,7 @@ RUN     cd ~ && \
         cd && \
         rm -rf rpmbuild swig-rel-3.0.12 *.src.rpm
 
-# We'll need mako, since EPEL doesn't have python34-mako, we'll install it via pip3:
+# We'll need mako, since EPEL doesn't have python36-mako, we'll install it via pip3:
 # same for pyzmq and lxml
 RUN     pip3 --no-cache-dir install 'mako' 'pyzmq' 'lxml' && \
         # Test runs produce a great quantity of dead grandchild processes.  In a
@@ -138,6 +141,8 @@ RUN     pip3 --no-cache-dir install 'mako' 'pyzmq' 'lxml' && \
         chmod +x /usr/local/bin/dumb-init
 
 COPY buildbot.tac /buildbot/buildbot.tac
+
+RUN  yum install -y openssl-devel
 
         # Install required python packages, and twisted
 RUN     pip3 --no-cache-dir install \
