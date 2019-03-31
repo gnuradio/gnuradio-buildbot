@@ -14,7 +14,7 @@
         "Ubuntu_16_04_64":[{
             "image": "gnuradio/buildbot-worker:ubuntu-16.04",
             "properties":{
-                "tasks": ["build", "coverity"],
+                "tasks": ["build"],
                 "make_opts": ["-j8", "-l16"]
             },
             "workers": 1,
