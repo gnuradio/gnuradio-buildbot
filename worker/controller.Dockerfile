@@ -9,12 +9,12 @@
 # Note that the UI and worker packages are the latest version published on pypi
 # This is to avoid pulling node inside this container
 
-FROM        alpine:3.7
+FROM        alpine:3.9
 MAINTAINER  Andrej Rode <mail@andrejro.de>
 
 # Last build date - this can be updated whenever there are security updates so
 # that everything is rebuilt
-ENV         security_updates_as_of 2018-05-20
+ENV         security_updates_as_of 2019-03-31
 
 
 # We install as much as possible python packages from the distro in order to avoid
