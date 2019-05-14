@@ -61,6 +61,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
 # Py3 deps
 RUN DEBIAN_FRONTEND=noninteractive \
        apt-get install -qy \
+         python3-click \
+         python3-click-plugins \
          python3-mako \
          python3-dev \
          python3-gi \
