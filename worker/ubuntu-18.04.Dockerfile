@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 MAINTAINER Andrej Rode <mail@andrejro.de>
 
-ENV security_updates_as_of 2018-08-27
+ENV security_updates_as_of 2019-05-14
 
 # Prepare distribution
 RUN apt-get update -q \
@@ -40,6 +40,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
 RUN DEBIAN_FRONTEND=noninteractive \
        apt-get install -qy \
          python-cheetah \
+         python-click \
+         python-click-plugins \
          python-dev \
          python-gi \
          python-gi-cairo \

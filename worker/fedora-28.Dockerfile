@@ -1,7 +1,7 @@
 FROM fedora:28
 MAINTAINER Andrej Rode <mail@andrejro.de>
 
-ENV security_updates_as_of 2019-01-12
+ENV security_updates_as_of 2019-05-14
 
 RUN dnf install -y \
 # General building
@@ -68,6 +68,8 @@ RUN dnf install -y \
         log4cpp-devel \
         PyQt5-devel \
         python3-PyQt5 \
+        python3-click \
+        python3-click-plugins \
 # GRC/next
         PyYAML \
         python3-PyYAML \
