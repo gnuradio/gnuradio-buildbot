@@ -86,43 +86,23 @@
             "builds":[
                 {
                     "opts": ["python3", "qt5"],
-                    "scheds": ["Ubuntu_18_04_64", "Fedora_26", "Fedora_28", "Fedora_29"],
-                    "runners": ["pull"],
-                    "properties": {
-                        "exclude_file": true
-                    }
+                    "scheds": ["Ubuntu_18_04_64", "Fedora_26", "Fedora_28", "Fedora_29", "Debian_10_64"],
+                    "runners": ["pull"]
                 },
                 {
                     "opts": ["python2", "qt5"],
-                    "scheds": ["Ubuntu_18_04_64", "Fedora_26", "Fedora_28", "Fedora_29"],
-                    "runners": ["pull"],
-                    "properties": {
-                        "exclude_file": true
-                    }
+                    "scheds": ["Ubuntu_18_04_64", "Fedora_26", "Fedora_28", "Fedora_29", "Debian_10_64"],
+                    "runners": ["pull"]
                 },
                 {
                     "opts": ["python3", "qt5"],
-                    "scheds": ["Ubuntu_18_04_64", "Fedora_26", "Fedora_28", "Fedora_29", "Centos_7_6"],
-                    "runners": ["push", "time"],
-                    "properties": {
-                        "test_excludes": ["qa_qtgui",
-                                          "qa_polarencoder",
-                                          "qa_udp_source_sink",
-                                          "qa_zeromq_pub",
-                                          "qa_header_payload_demux"]
-                    }
+                    "scheds": ["Ubuntu_18_04_64", "Fedora_26", "Fedora_28", "Fedora_29", "Centos_7_6", "Debian_10_64"],
+                    "runners": ["push", "time"]
                 },
                 {
                     "opts": ["python2", "qt5"],
-                    "scheds": ["Ubuntu_18_04_64", "Fedora_26", "Fedora_28", "Fedora_29"],
-                    "runners": ["push", "time"],
-                    "properties": {
-                        "test_excludes": ["qa_qtgui",
-                                          "qa_polarencoder",
-                                          "qa_udp_source_sink",
-                                          "qa_zeromq_pub",
-                                          "qa_header_payload_demux"]
-                    }
+                    "scheds": ["Ubuntu_18_04_64", "Fedora_26", "Fedora_28", "Fedora_29", "Debian_10_64"],
+                    "runners": ["push", "time"]
                 },
                 {
                     "opts": ["python3", "coverity"],

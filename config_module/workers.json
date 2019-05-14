@@ -1,7 +1,16 @@
 {
     "masterFQDN": "ci-master.gnuradio.org",
     "workers":{
-    "Linux":{
+        "Linux":{
+            "Debian_10_64":[{
+                "image": "gnuradio/buildbot-worker:debian-10",
+                "properties":{
+                    "tasks": ["build"],
+                    "make_opts": ["-j8", "-l16"]
+                },
+                "workers": 1,
+                "docker_host": "tcp://ci-host-01.gnuradio.org:2376"
+            }],
         "Ubuntu_18_04_64":[{
             "image": "gnuradio/buildbot-worker:ubuntu-18.04",
             "properties":{
