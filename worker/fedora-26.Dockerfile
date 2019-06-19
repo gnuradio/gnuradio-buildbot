@@ -66,6 +66,10 @@ RUN dnf install -y \
         log4cpp-devel \
         PyQt5-devel \
         python3-PyQt5 \
+        python3-click \
+        python3-click-plugins \
+        python2-click \
+        python2-click-plugins \
 # GRC/next
         PyYAML \
         python3-PyYAML \

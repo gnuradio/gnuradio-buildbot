@@ -70,6 +70,8 @@ RUN dnf install -y \
         python3-PyQt5 \
         python3-click \
         python3-click-plugins \
+        python2-click \
+        python2-click-plugins \
 # GRC/next
         PyYAML \
         python3-PyYAML \
