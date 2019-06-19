@@ -54,6 +54,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
          python-wxgtk3.0 \
          python-yaml \
          python-zmq \
+         python-click \
+         python-click-plugins \
          --no-install-recommends \
     && apt-get clean
 
@@ -75,6 +77,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
          python3-zmq \
          python-six \
          python3-six \
+         python3-click \
+         python3-click-plugins \
          --no-install-recommends \
     && apt-get clean
 
