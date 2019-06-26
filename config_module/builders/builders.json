@@ -91,7 +91,7 @@
                 },
                 {
                     "opts": ["python2", "qt5"],
-                    "scheds": ["Ubuntu_18_04_64", "Fedora_26", "Fedora_28", "Fedora_29", "Debian_10_64"],
+                    "scheds": ["Ubuntu_18_04_64", "Fedora_26", "Fedora_28",  "Debian_10_64"],
                     "runners": ["pull"]
                 },
                 {
