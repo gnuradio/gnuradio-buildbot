@@ -10,7 +10,7 @@
                 {
                     "scheds": ["Ubuntu_14_04_64",
                                "Ubuntu_16_04_64",
-                               "Fedora_26"],
+                               "Fedora_29"],
                     "runners": ["pull"]
                 }
             ]

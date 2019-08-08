@@ -62,7 +62,7 @@
             "builds":[
                 {
                     "opts": ["python2", "qt4", "hardened"],
-                    "scheds": ["Ubuntu_14_04_64", "Ubuntu_16_04_64", "Fedora_26"],
+                    "scheds": ["Ubuntu_14_04_64", "Ubuntu_16_04_64", "Fedora_29"],
                     "runners": ["pull"],
                     "properties": {
                         "exclude_file": true
@@ -70,7 +70,7 @@
                 },
                 {
                     "opts": ["python2", "qt4", "hardened"],
-                    "scheds": ["Ubuntu_14_04_64", "Ubuntu_16_04_64", "Fedora_26"],
+                    "scheds": ["Ubuntu_14_04_64", "Ubuntu_16_04_64", "Fedora_29"],
                     "runners": ["push", "time"],
                     "properties": {
                         "test_excludes": ["qa_qtgui",
@@ -86,22 +86,22 @@
             "builds":[
                 {
                     "opts": ["python3", "qt5"],
-                    "scheds": ["Ubuntu_18_04_64", "Fedora_26", "Fedora_28", "Fedora_29", "Debian_10_64"],
+                    "scheds": ["Ubuntu_18_04_64", "Fedora_29", "Debian_10_64"],
                     "runners": ["pull"]
                 },
                 {
                     "opts": ["python2", "qt5"],
-                    "scheds": ["Ubuntu_18_04_64", "Fedora_26", "Fedora_28",  "Debian_10_64"],
+                    "scheds": ["Ubuntu_18_04_64", "Fedora_29",  "Debian_10_64"],
                     "runners": ["pull"]
                 },
                 {
                     "opts": ["python3", "qt5"],
-                    "scheds": ["Ubuntu_18_04_64", "Fedora_26", "Fedora_28", "Fedora_29", "Centos_7_6", "Debian_10_64"],
+                    "scheds": ["Ubuntu_18_04_64", "Fedora_29", "Centos_7_6", "Debian_10_64"],
                     "runners": ["push", "time"]
                 },
                 {
                     "opts": ["python2", "qt5"],
-                    "scheds": ["Ubuntu_18_04_64", "Fedora_26", "Fedora_28", "Fedora_29", "Debian_10_64"],
+                    "scheds": ["Ubuntu_18_04_64", "Fedora_29", "Debian_10_64"],
                     "runners": ["push", "time"]
                 },
                 {
