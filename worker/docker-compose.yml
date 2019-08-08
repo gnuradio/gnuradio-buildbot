@@ -12,18 +12,6 @@ services:
           dockerfile: ./fedora-29.Dockerfile
         image: noc0lour/gnuradio-buildbot-worker:f29
         container_name: worker_f29
-    worker_f28:
-        build:
-          context: ./
-          dockerfile: ./fedora-28.Dockerfile
-        image: noc0lour/gnuradio-buildbot-worker:f28
-        container_name: worker_f28
-    worker_f26:
-        build: 
-          context: ./
-          dockerfile: ./fedora-26.Dockerfile
-        image: noc0lour/gnuradio-buildbot-worker:f26
-        container_name: worker_f26
     worker_u1804:
         build:
           context: ./

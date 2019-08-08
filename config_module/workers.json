@@ -38,24 +38,6 @@
             "workers": 1,
             "docker_host": "tcp://ci-host-01.gnuradio.org:2376"
         }],
-        "Fedora_26":[{
-            "image": "gnuradio/buildbot-worker:f26",
-            "properties":{
-                "tasks":["build"],
-                "make_opts": ["-j8", "-l16"]
-            },
-            "workers": 1,
-            "docker_host": "tcp://ci-host-02.gnuradio.org:2376"
-        }],
-        "Fedora_28":[{
-            "image": "gnuradio/buildbot-worker:f28",
-            "properties":{
-                "tasks":["build"],
-                "make_opts": ["-j8", "-l16"]
-            },
-            "workers": 1,
-            "docker_host": "tcp://ci-host-02.gnuradio.org:2376"
-        }],
         "Fedora_29":[{
             "image": "gnuradio/buildbot-worker:f29",
             "properties":{
