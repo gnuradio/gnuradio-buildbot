@@ -6,6 +6,12 @@ services:
           dockerfile: ./centos-7.6.Dockerfile
         image: noc0lour/gnuradio-buildbot-worker:centos-7.6
         container_name: worker_cos76
+    worker_f30:
+        build: 
+          context: ./
+          dockerfile: ./fedora-30.Dockerfile
+        image: noc0lour/gnuradio-buildbot-worker:f30
+        container_name: worker_f30
     worker_f29:
         build: 
           context: ./
