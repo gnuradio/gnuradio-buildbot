@@ -82,7 +82,7 @@
                 }
             ]
         },
-        "master":{
+        "maint-3.8":{
             "builds":[
                 {
                     "opts": ["python3", "qt5"],
@@ -102,6 +102,27 @@
                 {
                     "opts": ["python2", "qt5"],
                     "scheds": ["Ubuntu_18_04_64", "Fedora_26", "Fedora_28", "Fedora_29", "Debian_10_64"],
+                    "runners": ["push", "time"]
+                },
+                {
+                    "opts": ["python3", "coverity"],
+                    "scheds": ["coverity"],
+                    "runners": ["time"]
+                }
+
+
+            ]
+        },
+        "master":{
+            "builds":[
+                {
+                    "opts": ["python3", "qt5"],
+                    "scheds": ["Ubuntu_18_04_64", "Fedora_28", "Fedora_29", "Debian_10_64"],
+                    "runners": ["pull"]
+                },
+                {
+                    "opts": ["python3", "qt5"],
+                    "scheds": ["Ubuntu_18_04_64", "Fedora_28", "Fedora_29", "Centos_7_6", "Debian_10_64"],
                     "runners": ["push", "time"]
                 },
                 {
