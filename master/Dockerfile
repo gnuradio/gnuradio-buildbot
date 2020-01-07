@@ -3,18 +3,18 @@
 # please follow docker best practices
 # https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/
 #
-# Provides a base alpine 3.4 image with latest buildbot master installed
+# Provides a base alpine 3.11 image with latest buildbot master installed
 # Alpine base build is ~130MB vs ~500MB for the ubuntu build
 
 # Note that the UI and worker packages are the latest version published on pypi
 # This is to avoid pulling node inside this container
 
-FROM        alpine:3.10
+FROM        alpine:3.11
 MAINTAINER  Andrej Rode <mail@andrejro.de>
 
 # Last build date - this can be updated whenever there are security updates so
 # that everything is rebuilt
-ENV         security_updates_as_of 2019-08-10
+ENV         security_updates_as_of 2020-01-07
 
 
 # We install as much as possible python packages from the distro in order to avoid
