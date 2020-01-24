@@ -7,7 +7,7 @@ ENV security_updates_as_of 2018-12-04
 # like CMake 3
 RUN yum install epel-release -y && \
 # get the new packages from EPEL
-        yum --disablerepo=* --enablerepo=epel check-update -y && \
+#        yum --disablerepo=* --enablerepo=epel check-update -y && \
         yum install -y \
 # General building
         ccache \
@@ -71,14 +71,16 @@ RUN yum install epel-release -y && \
         pycairo \
         python36-cairo \
         pango \
+        fedpkg \
         && \
         yum clean all && \
         rm /usr/bin/python3 && \
         ln -s /usr/bin/python3.6 /usr/bin/python3 && \
+        sed -i 's/%python3_pkgversion 3/%python3_pkgversion 36/' /etc/rpm/macros.python-srpm && \
 # download all the source RPMs we'll build later
-        cd && \
-        curl -L http://ftp.halifax.rwth-aachen.de/fedora/linux/development/rawhide/Everything/source/tree/Packages/s/sip-4.19.15-1.fc31.src.rpm > sip.src.rpm && \
-        curl -L https://ftp.halifax.rwth-aachen.de/fedora/linux/development/rawhide/Everything/source/tree/Packages/p/python-qt5-5.11.3-6.fc31.src.rpm > python-qt5.src.rpm && \
+        cd && fedpkg clone -a sip && cd sip && git checkout 13c08eec && fedpkg --release el7 srpm && mv sip-4.19.15-1.el7.src.rpm ../sip.src.rpm && \
+        cd && fedpkg clone -a python-qt5 && cd python-qt5 && git checkout 83c95793 && fedpkg --release el7 srpm && mv python-qt5-5.11.3-6.el7.src.rpm ../python-qt5.src.rpm && \
+        cd ~ && \
         curl -L https://download.fedoraproject.org/pub/fedora/linux/releases/29/Everything/source/tree/Packages/q/qwt-6.1.3-9.fc29.src.rpm > qwt.src.rpm && \
         curl -L https://github.com/swig/swig/archive/rel-3.0.12.tar.gz > swig.tar.gz && \
         cd ~ && \
