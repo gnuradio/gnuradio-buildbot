@@ -107,6 +107,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
        libuhd-dev \
        libusb-1.0-0-dev \
        libzmq3-dev \
+       libgsm1-dev \
+       libcodec2-dev \
        portaudio19-dev \
        pyqt4-dev-tools \
        pyqt5-dev-tools \
