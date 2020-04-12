@@ -82,6 +82,7 @@ RUN dnf install -y \
         pycairo \
         python3-cairo \
         pango \
+        jq \
         && \
         dnf clean all && \
         # Test runs produce a great quantity of dead grandchild processes.  In a
@@ -101,8 +102,25 @@ RUN     pip3 --no-cache-dir install \
             useradd -u 2017 -ms /bin/bash buildbot && chown -R buildbot /buildbot && \
             echo "max_size = 20G" > /etc/ccache.conf
 
-RUN    mkdir -p /src/volk && cd /src && curl -Lo volk.tar.gz https://github.com/gnuradio/volk/archive/v2.1.0.tar.gz && tar xzf volk.tar.gz -C volk --strip-components=1 && cmake -DCMAKE_BUILD_TYPE=Release -S ./volk/ -B build && cd build && cmake --build . && cmake --build . --target install && cd / && rm -rf /src/volk && rm -rf /src/build
+# ADD the latest release JSON here: that invalidates the cache for the following
+# operations if, and only if, that file changed.
+ADD https://api.github.com/repos/gnuradio/volk/releases/latest /latest-volk
+
+RUN    mkdir -p /src/volk \
+    && cd /src \
+    && curl -Lo volk.tar.gz \
+       $(jq -r '.assets[] | {name: .name, url: .browser_download_url} | select ( .name | test("tar.gz$") ) | .url' < /latest-volk) \
+    && tar xzf volk.tar.gz -C volk --strip-components=1 \
+    && cmake -DCMAKE_BUILD_TYPE=Release -S ./volk/ -B build \
+    && cd build \
+    && cmake --build . \
+    && cmake --build . --target install \
+    && cd / \
+    && rm -rf /src/volk \
+    && rm -rf /src/build
+
 USER buildbot
+
 
 WORKDIR /buildbot
 

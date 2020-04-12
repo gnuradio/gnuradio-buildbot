@@ -146,7 +146,8 @@ RUN apt-get -y install -q \
                 libffi-dev \
                 libssl-dev \
                 python3-pip \
-                curl
+                curl \
+                jq
 
 # Work around broken scan.coverity.com certificates
 RUN curl -s -L https://entrust.com/root-certificates/entrust_l1k.cer -o /usr/local/share/ca-certificates/entrust_l1k.crt && update-ca-certificates
@@ -168,7 +169,22 @@ RUN         pip3 --no-cache-dir install \
 
 RUN rm -rf /var/lib/apt/*
 
-RUN    mkdir -p /src/volk && cd /src && curl -Lo volk.tar.gz https://github.com/gnuradio/volk/archive/v2.1.0.tar.gz && tar xzf volk.tar.gz -C volk --strip-components=1 && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release ../volk/ && make && make install && cd / && rm -rf /src/volk && rm -rf /src/build
+# ADD the latest release JSON here: that invalidates the cache for the following
+# operations if, and only if, that file changed.
+ADD https://api.github.com/repos/gnuradio/volk/releases/latest /latest-volk
+
+RUN    mkdir -p /src/volk \
+    && cd /src \
+    && curl -Lo volk.tar.gz \
+    $(jq -r '.assets[] | {name: .name, url: .browser_download_url} | select ( .name | test("tar.gz$") ) | .url' < /latest-volk) \
+    && tar xzf volk.tar.gz -C volk --strip-components=1 \
+    && mkdir /src/volk/build \
+    && cd /src/volk/build \
+    && cmake -DCMAKE_BUILD_TYPE=Release .. \
+    && make -j \
+    && make install \
+    && cd / \
+    && rm -rf /src/volk \
 
 USER buildbot
 
