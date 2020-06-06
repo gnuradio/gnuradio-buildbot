@@ -1,6 +1,7 @@
 version: '2'
 services:
   buildbot:
+    hostname: bb-master
     container_name: bb-master
     image: gnuradio/gnuradio-buildbot-master:latest
     env_file:
