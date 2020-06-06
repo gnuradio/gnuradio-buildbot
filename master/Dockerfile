@@ -14,7 +14,7 @@ MAINTAINER  Andrej Rode <mail@andrejro.de>
 
 # Last build date - this can be updated whenever there are security updates so
 # that everything is rebuilt
-ENV         security_updates_as_of 2020-01-07
+ENV         security_updates_as_of 2020-01-11
 
 
 # We install as much as possible python packages from the distro in order to avoid
@@ -29,6 +29,7 @@ RUN \
         python3 \
         py3-psycopg2 \
         py3-cffi \
+        py3-cryptography \
         py3-requests \
         py3-openssl@edge \
         py3-cryptography@edge \
