@@ -162,6 +162,8 @@ RUN rm -rf /var/lib/apt/*
 
 RUN    mkdir -p /src/volk && cd /src && curl -Lo volk.tar.gz https://github.com/gnuradio/volk/archive/v2.1.0.tar.gz && tar xzf volk.tar.gz -C volk --strip-components=1 && cmake -DCMAKE_BUILD_TYPE=Release -S ./volk/ -B build && cd build && cmake --build . && cmake --build . --target install && cd / && rm -rf /src/volk && rm -rf /src/build
 
+RUN    mkdir -p /src/pybind11 && cd /src && curl -Lo pybind11.tar.gz https://github.com/pybind/pybind11/archive/v2.4.3.tar.gz && tar xzf pybind11.tar.gz -C pybind11 --strip-components=1 && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release -DPYBIND11_TEST=OFF ../pybind11/ && make && make install && cd / && rm -rf /src/pybind11 && rm -rf /src/build
+
 USER buildbot
 
 WORKDIR /buildbot
