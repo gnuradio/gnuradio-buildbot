@@ -36,6 +36,7 @@ RUN dnf install -y \
         SDL-devel \
         alsa-lib-devel \
         portaudio-devel \
+        libsndfile-devel \
 # because fedora is too stupid to install dependencies
        jack-audio-connection-kit \
         cppzmq-devel \

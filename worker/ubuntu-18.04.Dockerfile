@@ -26,6 +26,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
          libportaudio2 \
          libqwt6abi1 \
          libsdl-image1.2 \
+         libsndfile1-dev \
          libuhd003.010.003 \
          libusb-1.0-0 \
          libzmq5 \
