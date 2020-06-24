@@ -41,6 +41,7 @@ RUN echo "zchunk=false" >> /etc/dnf/dnf.conf && \
         alsa-lib-devel \
         portaudio-devel \
         jack-audio-connection-kit \
+        libsndfile-devel \
         uhd-devel \
         log4cpp-devel \
 ## Vocoder libraries
