@@ -68,7 +68,8 @@ def build_and_test():
     @util.renderer
     def parse_test_excludes(props):
         command = ["ctest", "--output-on-failure", "--timeout", "120"]
-        excludes = ["qtgui"]
+        excludes = props.getProperty('test_excludes', [])
+        excludes.append("qtgui")
         if excludes is not None:
             command += ["-E", "|".join(excludes)]
         return command

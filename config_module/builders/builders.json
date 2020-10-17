@@ -118,17 +118,34 @@
                 {
                     "opts": ["python3", "qt5"],
                     "scheds": ["Ubuntu_18_04_64", "Fedora_29", "Debian_10_64"],
-                    "runners": ["pull"]
+                    "runners": ["pull"],
+                    "properties": {
+                        "test_excludes": ["qa_uhd",
+                                          "qa_uncaught_exception",
+                                          "qa_header_payload_demux"]
+                    }
+
                 },
                 {
                     "opts": ["python3", "qt5"],
                     "scheds": ["Ubuntu_18_04_64", "Fedora_29", "Centos_7_6", "Debian_10_64"],
-                    "runners": ["push", "time"]
+                    "runners": ["push", "time"],
+                    "properties": {
+                        "test_excludes": ["qa_uhd",
+                                          "qa_uncaught_exception",
+                                          "qa_header_payload_demux"]
+                    }
                 },
                 {
                     "opts": ["python3", "coverity"],
                     "scheds": ["coverity"],
-                    "runners": ["time"]
+                    "runners": ["time"],
+                    "properties": {
+                        "test_excludes": ["qa_uhd",
+                                          "qa_uncaught_exception",
+                                          "qa_header_payload_demux"]
+                    }
+
                 }
 
 
