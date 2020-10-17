@@ -1,7 +1,7 @@
 FROM debian:buster
-MAINTAINER Andrej rode <mail@andrejro.de>
+MAINTAINER Andrej Rode <mail@andrejro.de>
 
-ENV security_updates_as_of 2019-05-14
+ENV security_updates_as_of 2020-04-07
 
 RUN apt-get update -q \
   && apt-get -y upgrade
@@ -168,7 +168,6 @@ RUN    mkdir -p /src/volk && cd /src && curl -Lo volk.tar.gz https://github.com/
 RUN    mkdir -p /src/pybind11 && cd /src && curl -Lo pybind11.tar.gz https://github.com/pybind/pybind11/archive/v2.4.3.tar.gz && tar xzf pybind11.tar.gz -C pybind11 --strip-components=1 && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release -DPYBIND11_TEST=OFF ../pybind11/ && make && make install && cd / && rm -rf /src/pybind11 && rm -rf /src/build
 
 USER buildbot
-
 WORKDIR /buildbot
 
 CMD ["/usr/local/bin/dumb-init", "twistd", "-ny", "buildbot.tac"]
