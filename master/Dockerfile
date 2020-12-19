@@ -50,7 +50,8 @@ RUN pip3 install docker-pycreds backports.ssl_match_hostname && \
     pip3 install --upgrade "twisted" "txrequests" && \
     rm -r /root/.cache
 
-RUN pip3 install "buildbot[bundle,tls]"
+#RUN pip3 install "buildbot[bundle,tls]"
+RUN BUILDBOT_VERSION="2.9.2" pip3 install buildbot-grid-view buildbot-waterfall-view "buildbot[bundle,tls] @ git+https://github.com/noc0lour/buildbot@add_pullOnDemand#egg=buildbot&subdirectory=master" 
 
 WORKDIR /var/lib/buildbot
 CMD ["dumb-init", "/var/lib/buildbot/start_buildbot.sh"]
